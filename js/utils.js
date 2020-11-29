@@ -350,7 +350,7 @@ NexT.utils = {
     // Margin of sidebar b2t: -4px -10px -18px, brings a different of 22px.
     if (CONFIG.scheme === 'Pisces' || CONFIG.scheme === 'Gemini') sidebarSchemePadding += (sidebarOffset * 2) - 22;
     // Initialize Sidebar & TOC Height.
-    var sidebarWrapperHeight = document.body.offsetHeight - sidebarSchemePadding + 'px';
+    var sidebarWrapperHeight = document.body.offsetHeight - sidebarSchemePadding -100 + 'px';
     document.querySelector('.site-overview-wrap').style.maxHeight = sidebarWrapperHeight;
     document.querySelector('.post-toc-wrap').style.maxHeight = sidebarWrapperHeight;
   },
