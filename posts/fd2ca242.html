@@ -32,11 +32,11 @@
 <meta property="og:site_name" content="Josh&#39;s Blog">
 <meta property="og:description" content="本文从一个 Verilog 用例出发，对 Verilog 语言的语法进行了阐释。包括的内容主要有 Verilog 语言的基本词法，常用的编译指令，逻辑值、常量、变量的含义，操作符的概念和分类等，还对 Verilog 中的参数、并发以及系统任务和系统函数进行了简要说明。 两种设计方法（Top-Down 和 Bottom-Up）在传统意义上，设计硬件电路主要是使用自底向上（Bottom-Up）的设计方">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-010-JoshVerilog.png?imageMogr2/thumbnail/!60p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5">
-<meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-020-XORGate.png?imageMogr2/thumbnail/!35p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5">
-<meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-030-DFlipFlop.png?imageMogr2/thumbnail/!40p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5">
+<meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-010-JoshVerilog.png!700px">
+<meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-020-XORGate.png!700px">
+<meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-030-DFlipFlop.png!300px">
 <meta property="article:published_time" content="2020-11-28T03:42:50.000Z">
-<meta property="article:modified_time" content="2020-11-29T09:17:23.554Z">
+<meta property="article:modified_time" content="2020-11-29T17:01:57.310Z">
 <meta property="article:author" content="Josh Gao">
 <meta property="article:tag" content="Verilog">
 <meta property="article:tag" content="HDL">
@@ -44,7 +44,7 @@
 <meta property="article:tag" content="自底向上">
 <meta property="article:tag" content="Verilog 语法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-010-JoshVerilog.png?imageMogr2/thumbnail/!60p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5">
+<meta name="twitter:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-010-JoshVerilog.png!700px">
 
 <link rel="canonical" href="http://josh-gao.top/posts/fd2ca242.html">
 
@@ -151,7 +151,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">18</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -161,7 +161,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">8</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -248,7 +248,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-29 17:17:23" itemprop="dateModified" datetime="2020-11-29T17:17:23+08:00">2020-11-29</time>
+                <time title="修改时间：2020-11-30 01:01:57" itemprop="dateModified" datetime="2020-11-30T01:01:57+08:00">2020-11-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -321,7 +321,7 @@
 <p>硬件电路最大的特点是由一个个模块组成，模块之间使用互连线，各个模块<strong>独立并行</strong>工作。同时，它们通过输人和输出端口与相邻的模块互相沟通。每个硬件单元都有相应的<strong>延时特性</strong>，硬件的延时也是设计的目标之一。</p>
 <h1 id="从-Verilog-实例出发"><a href="#从-Verilog-实例出发" class="headerlink" title="从 Verilog 实例出发"></a>从 Verilog 实例出发</h1><h2 id="Verilog-实例"><a href="#Verilog-实例" class="headerlink" title="Verilog 实例"></a>Verilog 实例</h2><p><a name="JoshVerilog模块"></a>首先看一个简单的如下图所示的电路（模块）：JoshVerilog。它可以是一个独立的设计，也可以是更大的系统的一个组成部分。</p>
 <div align="center">
-  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-010-JoshVerilog.png?imageMogr2/thumbnail/!60p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/>
+  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-010-JoshVerilog.png!700px"/>
 </div>
 
 <p>该电路首先在两个 2 位的输人数据 <code>A_in[1:0]</code> 的和 <code>B_in[1:0]</code> 之间，由 <code>sel</code> 信号做二选一。后面是一个 2-4 译码电路，将输人的信号 <code>result[1:0]</code>解析成 <code>eq0</code>、<code>eql</code>、<code>eq2</code> 和 <code>eq3</code> 这4个信号，它们同时只有一个为 1。</p>
@@ -551,7 +551,7 @@
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">reg</span> A_xor_wire</span><br></pre></td></tr></table></figure>
 <p>这两者描述的目的一样，都是一个异或门，如下图所示。</p>
 <div align="center">
-  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-020-XORGate.png?imageMogr2/thumbnail/!35p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/>
+  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-020-XORGate.png!700px"/>
 </div>
 
 <p>下面从语义上的角度探讨两种描述方式的不同。</p>
@@ -560,7 +560,7 @@
 <p>不管采用哪种方式，所描述的是一样的组合逻辑电路。尤其是第二种描述，虽然其在语言中被定义为 reg 型，但并不是对应硬件上的触发器（flip-flop），而是 Verilog 语言仿真语义上的寄存器概念。</p>
 <p>但是，在对实际电路中D触发器建模的时候，必须采用 <code>reg</code> 型的变量。下图是 D 触发器的模型。</p>
 <div align="center">
-  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-030-DFlipFlop.png?imageMogr2/thumbnail/!40p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/>
+  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-030-DFlipFlop.png!300px"/>
 </div>
 
 <p>在上述<a href="#JoshVerilog代码">实例代码</a>中相应的描述如下：</p>
@@ -1149,6 +1149,9 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\posts\fd117896.html" rel="bookmark">Josh 的学习笔记之 Verilog（Part 3 —— 描述方式和设计层次）</a></div>
+    </li>
+    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\posts\460433dd.html" rel="bookmark">Josh 的学习笔记之 Verilog（Part 1 —— 初识 HDL 设计方法）</a></div>
     </li>
   </ul>
@@ -1194,7 +1197,10 @@
     <a href="/posts/b158f1b4.html" rel="prev" title="Hexo-NexT 折腾就完事儿了">
       <i class="fa fa-chevron-left"></i> Hexo-NexT 折腾就完事儿了
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/posts/fd117896.html" rel="next" title="Josh 的学习笔记之 Verilog（Part 3 —— 描述方式和设计层次）">
+      Josh 的学习笔记之 Verilog（Part 3 —— 描述方式和设计层次） <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -1270,7 +1276,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1283,7 +1289,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1310,7 +1316,7 @@
   <div class="widget-wrap">
     <div id="myCanvasContainer" class="widget tagcloud">
       <canvas width="250" height="250" id="resCanvas" style="width:100%">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDL/" rel="tag">HDL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MATLAB/" rel="tag">MATLAB</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Next/" rel="tag">Next</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTL/" rel="tag">RTL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Verilog/" rel="tag">Verilog</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Verilog-%E8%AF%AD%E6%B3%95/" rel="tag">Verilog 语法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E9%87%87%E6%A0%B7/" rel="tag">上采样</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E8%BE%93%E7%BA%A7/" rel="tag">寄存器传输级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E5%9E%8B%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="tag">成型滤波器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="tag">滤波器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80/" rel="tag">硬件描述语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%BA%95%E5%90%91%E4%B8%8A/" rel="tag">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B/" rel="tag">自顶向下</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%8C%E4%B8%BA%E7%BA%A7/" rel="tag">行为级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E6%96%AF%E7%99%BD%E5%99%AA%E5%A3%B0/" rel="tag">高斯白噪声</a><span class="tag-list-count">1</span></li></ul>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDL/" rel="tag">HDL</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MATLAB/" rel="tag">MATLAB</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Next/" rel="tag">Next</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTL/" rel="tag">RTL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Verilog/" rel="tag">Verilog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Verilog-%E8%AF%AD%E6%B3%95/" rel="tag">Verilog 语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E9%87%87%E6%A0%B7/" rel="tag">上采样</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E8%BE%93%E7%BA%A7/" rel="tag">寄存器传输级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E5%9E%8B%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="tag">成型滤波器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F/" rel="tag">描述方式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="tag">滤波器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80/" rel="tag">硬件描述语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%BA%95%E5%90%91%E4%B8%8A/" rel="tag">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B/" rel="tag">自顶向下</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%8C%E4%B8%BA%E7%BA%A7/" rel="tag">行为级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B0%81%E6%80%A5%E5%B1%82%E6%AC%A1/" rel="tag">谁急层次</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E6%96%AF%E7%99%BD%E5%99%AA%E5%A3%B0/" rel="tag">高斯白噪声</a><span class="tag-list-count">1</span></li></ul>
       </canvas>
     </div>
   </div>
@@ -1348,13 +1354,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">35k</span>
+    <span title="站点总字数">56k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">32 分钟</span>
+    <span title="站点阅读时长">51 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
