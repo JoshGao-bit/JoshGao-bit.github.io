@@ -22,19 +22,19 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"josh-gao.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"josh-gao.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":260,"display":"post","padding":12,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"slideRightBigIn","post_header":"perspectiveLeftIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideLeftIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本文阐述了 HDL 语言&#x2F;设计方法的基本概念。主要介绍了数字系统建模方法的演变，引入了 HDL 语言的基本概念，对 Verilog HDL 和 VHDL、Verilog HDL 和 C 的联系与区别进行了说明，在最后引入了 HDL 的设计和验证流程，并对各个流程进行了简单介绍。 设计方法的变迁随着微电子设计技术与工艺的发展，数字集成电路从电子管、晶体管、中小规模集成电路、超大规模集成电路（Very">
+  <meta name="description" content="本文阐述了 HDL 语言&#x2F;设计方法的基本概念。主要介绍了数字系统建模方法的演变，引入了 HDL 语言的基本概念，对 Verilog HDL 和 VHDL、Verilog HDL 和 C 的联系与区别进行了说明，在最后引入了 HDL 的设计和验证流程，并对各个流程进行了简单介绍。 1. 设计方法的变迁随着微电子设计技术与工艺的发展，数字集成电路从电子管、晶体管、中小规模集成电路、超大规模集成电路（V">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Josh 的学习笔记之 Verilog（Part 1 —— 初识 HDL 设计方法）">
 <meta property="og:url" content="http://josh-gao.top/posts/460433dd.html">
 <meta property="og:site_name" content="Josh&#39;s Blog">
-<meta property="og:description" content="本文阐述了 HDL 语言&#x2F;设计方法的基本概念。主要介绍了数字系统建模方法的演变，引入了 HDL 语言的基本概念，对 Verilog HDL 和 VHDL、Verilog HDL 和 C 的联系与区别进行了说明，在最后引入了 HDL 的设计和验证流程，并对各个流程进行了简单介绍。 设计方法的变迁随着微电子设计技术与工艺的发展，数字集成电路从电子管、晶体管、中小规模集成电路、超大规模集成电路（Very">
+<meta property="og:description" content="本文阐述了 HDL 语言&#x2F;设计方法的基本概念。主要介绍了数字系统建模方法的演变，引入了 HDL 语言的基本概念，对 Verilog HDL 和 VHDL、Verilog HDL 和 C 的联系与区别进行了说明，在最后引入了 HDL 的设计和验证流程，并对各个流程进行了简单介绍。 1. 设计方法的变迁随着微电子设计技术与工艺的发展，数字集成电路从电子管、晶体管、中小规模集成电路、超大规模集成电路（V">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-27-josh-verilog-part-1/2020-11-27-josh-verilog-part-1-010-DesignSimulationFlowChartBasedonHDL.png?imageMogr2/thumbnail/!35p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5">
 <meta property="article:published_time" content="2020-11-27T14:58:07.000Z">
-<meta property="article:modified_time" content="2020-11-28T04:10:41.882Z">
+<meta property="article:modified_time" content="2020-11-30T17:07:35.880Z">
 <meta property="article:author" content="Josh Gao">
 <meta property="article:tag" content="Verilog">
 <meta property="article:tag" content="HDL">
@@ -155,7 +155,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">14</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -247,7 +247,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-28 12:10:41" itemprop="dateModified" datetime="2020-11-28T12:10:41+08:00">2020-11-28</time>
+                <time title="修改时间：2020-12-01 01:07:35" itemprop="dateModified" datetime="2020-12-01T01:07:35+08:00">2020-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -285,7 +285,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.3k</span>
+              <span>5.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -305,19 +305,29 @@
 
       
         <p>本文阐述了 HDL 语言/设计方法的基本概念。主要介绍了数字系统建模方法的演变，引入了 HDL 语言的基本概念，对 Verilog HDL 和 VHDL、Verilog HDL 和 C 的联系与区别进行了说明，在最后引入了 HDL 的设计和验证流程，并对各个流程进行了简单介绍。</p>
-<h1 id="设计方法的变迁"><a href="#设计方法的变迁" class="headerlink" title="设计方法的变迁"></a>设计方法的变迁<a name="01"></a></h1><p>随着微电子设计技术与工艺的发展，数字集成电路从电子管、晶体管、中小规模集成电路、超大规模集成电路（Very Large Scale Integrated Circuit, VLSIC）逐步发展到今天的专用集成电路（Application Specific Integrated Circuit, ASIC），愈发数字化的产品如计算机、手机、数字电视等都运用了复杂的专用数字集成电路。数字逻辑器件从简单的逻辑门到复杂的 SoC，种类繁多，提供了对复杂系统的灵活的支撑。</p>
+<h1 id="1-设计方法的变迁"><a href="#1-设计方法的变迁" class="headerlink" title="1. 设计方法的变迁"></a>1. 设计方法的变迁<a name="01"></a></h1><p>随着微电子设计技术与工艺的发展，数字集成电路从电子管、晶体管、中小规模集成电路、超大规模集成电路（Very Large Scale Integrated Circuit, VLSIC）逐步发展到今天的专用集成电路（Application Specific Integrated Circuit, ASIC），愈发数字化的产品如计算机、手机、数字电视等都运用了复杂的专用数字集成电路。数字逻辑器件从简单的逻辑门到复杂的 SoC，种类繁多，提供了对复杂系统的灵活支撑。</p>
 <a id="more"></a>
-<p>随着数字电路系统的不断发展，系统的逻辑复杂度与规模日益增加，数字系统的设计方法也随之不断演进。早期简单的门逻辑设计阶段，EDA 工具应用范围十分有限，工程师们习惯于使用<strong>卡诺图</strong>简化设计，然后通过面包板等实验系统验证设计；系统相对复杂后，工程师们借助 EDA 工具通过原理图描述数字系统。原理图由元件库中的元件构成，使用 EDA（Electronic Design Automation，电子设计自动化）工具可以对原理图进行仿真并分析其性能；当数字系统发展到 ASIC 与 PLD（Programmable Logic Device，可编程逻辑器件） 设计阶段后，原理图不利于移植、维护费时费力等缺点逐步显现，这时需要抽象度更高、更灵活的设计方式 —— HDL（Hardware Description Language，硬件描述语言）。</p>
+<p>随着数字电路系统的不断发展，系统的逻辑复杂度与规模日益增加，数字系统的设计方法也随之不断演进。早期简单的门逻辑设计阶段，EDA 工具应用范围十分有限，工程师们习惯于使用<strong>卡诺图</strong>简化设计，然后通过面包板等实验系统验证设计；系统相对复杂后，工程师们借助 EDA 工具通过原理图描述数字系统。</p>
+<blockquote>
+<p>原理图由元件库中的元件构成，使用 EDA（Electronic Design Automation，电子设计自动化）工具可以对原理图进行仿真并分析其性能。</p>
+</blockquote>
+<p>当数字系统发展到 ASIC 与 PLD（Programmable Logic Device，可编程逻辑器件） 设计阶段后，原理图不利于移植、维护费时费力等缺点逐步显现，这时需要抽象度更高、更灵活的设计方式 —— HDL（Hardware Description Language，硬件描述语言）。</p>
 <p>使用 HDL 语言，可以从算法、系统级（System Level）、功能模块级（Functional Model Level）、行为级（Behavioral Level）、寄存器传输级（RTL, Register Transfer Level）、门级（Gate Level）到开关级（Switch Level）等不同层次描述数字电路系统，然后通过 EDA 工具综合、仿真并实现该系统。可以说 HDL 语言的出现是数字系统设计方法的一个重大飞跃。</p>
-<p>数字电路系统设计方法的另一个重大飞跃是随着 EDA 工具的不断推陈出新发生的。早期 ASIC 和 PLD 设计时，人们需要直接描述 CMOS 的开关电路或门级电路，其设计量庞大，仿真速度也非常慢，像当今系统门数量为千万门级的 FPGA 用开关级或门级方法描述在当时是不可想象的。这时人们就希望能够使用 HDL 直接从更高的层次描述电路，然后使用 EDA 工具自动将高层次的 HDL 电路描述解析到门级，这些将大大节约设计与仿真时间，这个<strong>从高层次的电路描述通过 EDA 工具解析到门级等低层次的电路描述的过程就叫“综合”（Synthesize），或者逻辑综合</strong>。综合工具能将高层次的 HDL 语言、原理图等设计描述翻译成由与、或、非门等基本逻辑单元组成的门级连接（<strong>网表</strong>）并根据设计目标与要求（约束条件）优化所生成的逻辑连接，输出门级网表文件。目前最成熟的综合工具是 RTL 级综合工具，它能将 RTL 级描述翻译并优化为门级网表。综合工具的产生支撑了直接从 RTL 级描述硬件电路，这种从门级描述抽象到 RTL 级描述数字电路是设计方法的又一次伟大飞跃。</p>
+<p>数字电路系统设计方法的另一个重大飞跃是随着 EDA 工具的不断推陈出新发生的。早期 ASIC 和 PLD 设计时，人们需要直接描述 CMOS 的开关电路或门级电路，其设计量庞大，仿真速度也非常慢，像当今系统门数量为千万门级的 FPGA 用开关级或门级方法描述在当时是不可想象的。这时人们就希望能够使用 HDL 直接从更高的层次描述电路，然后使用 EDA 工具自动将高层次的 HDL 电路描述解析到门级，这些将大大节约设计与仿真时间，这个<strong>从高层次的电路描述通过 EDA 工具解析到门级等低层次的电路描述的过程就叫“综合”（Synthesize），或者逻辑综合</strong>。</p>
+<p>综合工具能将高层次的 HDL 语言、原理图等设计描述翻译成由与、或、非门等基本逻辑单元组成的门级连接（<strong>网表</strong>）并根据设计目标与要求（约束条件）优化所生成的逻辑连接，输出门级网表文件。</p>
+<p>目前最成熟的综合工具是 RTL 级综合工具，它能将 RTL 级描述翻译并优化为门级网表。综合工具的产生支撑了直接从 RTL 级描述硬件电路，这种从门级描述抽象到 RTL 级描述数字电路是设计方法的又一次伟大飞跃。</p>
 <p>从上面描述可以看到 HDL 语言是分层次的，关于上述 HDL 语言设计层次的含义在 <a href="#03">3. HDL 的设计与验证流程</a>小节和 <a target="_blank" rel="noopener" href="https://josh-gao.blog.csdn.net/article/details/105262549#5__1023">《Part 3——描述方式和设计层次》的 5. 设计层次</a>小节有详细论述。)</p>
-<h1 id="Verilog-语言的特点"><a href="#Verilog-语言的特点" class="headerlink" title="Verilog 语言的特点"></a>Verilog 语言的特点<a name="02"></a></h1><h2 id="Verilog-的由来"><a href="#Verilog-的由来" class="headerlink" title="Verilog 的由来"></a>Verilog 的由来</h2><p>Verilog 是 Verilog HDL 的简称。Verilog 语言最初于1983年由 Gateway Design Automation 公司开发，于1995年接受为 IEEE 标准。Verilog 语言不仅定义了语法，而且对每个语法结构都清晰定义了仿真语义，从而便于仿真调试。而且 Verilog 从 C 语言继承了很多操作符和语法结构，对初学者而言易学易用。另外 Verilog 语言具有很强的扩展能力，最新的 Verilog 2001 标准<sup><a href="#fn_1" id="reffn_1">1</a></sup>大大扩展了 Verilog 的应用灵活性。</p>
+<h1 id="2-Verilog-语言的特点"><a href="#2-Verilog-语言的特点" class="headerlink" title="2. Verilog 语言的特点"></a>2. Verilog 语言的特点<a name="02"></a></h1><h2 id="2-1-Verilog-的由来"><a href="#2-1-Verilog-的由来" class="headerlink" title="2.1. Verilog 的由来"></a>2.1. Verilog 的由来</h2><p>Verilog 是 Verilog HDL 的简称。</p>
+<blockquote>
+<p>Verilog 语言最初于1983年由 Gateway Design Automation 公司开发，于1995年接受为 IEEE 标准。</p>
+</blockquote>
+<p>Verilog 语言不仅定义了语法，而且对每个语法结构都清晰定义了仿真语义，从而便于仿真调试。而且 Verilog 从 C 语言继承了很多操作符和语法结构，对初学者而言易学易用。另外 Verilog 语言具有很强的扩展能力，最新的 Verilog 2001 标准<sup><a href="#fn_1" id="reffn_1">1</a></sup>大大扩展了 Verilog 的应用灵活性。</p>
 <p>另外一个流行的 HDL 语言是 VHDL，其发展初期受到美国国防部支持，并于 1987 年成为 IEEE 标准。VHDL 语言的特点是描述严谨。</p>
-<h2 id="Verilog-和-VHDL"><a href="#Verilog-和-VHDL" class="headerlink" title="Verilog 和 VHDL"></a>Verilog 和 VHDL</h2><p>Verilog 和 VHDL 作为最为流行的 HDL 语言，从设计能力上而言都能胜任数字电路系统的设计任务。</p>
+<h2 id="2-2-Verilog-和-VHDL"><a href="#2-2-Verilog-和-VHDL" class="headerlink" title="2.2. Verilog 和 VHDL"></a>2.2. Verilog 和 VHDL</h2><p>Verilog 和 VHDL 作为最为流行的 HDL 语言，从设计能力上而言都能胜任数字电路系统的设计任务。</p>
 <p>VHDL 最初用作文档来描述数字硬件的行为，因此其<strong>描述性和抽象层次更高</strong>。也就是说，VHDL 更适合描述更高层次（如行为级、系统级等）的硬件电路。</p>
 <p>Verilog 最初是为了更简洁有效地描述数字硬件电路和仿真而设计的，它的许多关键字与语法集成了 C 语言的体系，因此易学易懂，接受度很广。</p>
 <p>前面已经提到最流行的 HDL 语言是 Verilog 和 VHDL。在其基础上发展出了许多抽象程度更高的硬件描述语言，如 SystemVerilog、Superlog、SystemC、CoWare C，这些高级 HDL 语言的语法结枃更加丰富，更适合做系统级、功能级等高层次的设计描述和仿真。</p>
-<h2 id="Verilog-和-C"><a href="#Verilog-和-C" class="headerlink" title="Verilog 和 C"></a>Verilog 和 C</h2><p>Verilog 语言是根据 C 语言发明而来的，因此 Verilog 具备了 C 语言的简洁易用的特点。Verilog 从 C 语言中借鉴了许多语法，例如预编译指令和一些高级编程语言结构。</p>
+<h2 id="2-3-Verilog-和-C"><a href="#2-3-Verilog-和-C" class="headerlink" title="2.3. Verilog 和 C"></a>2.3. Verilog 和 C</h2><p>Verilog 语言是根据 C 语言发明而来的，因此 Verilog 具备了 C 语言的简洁易用的特点。Verilog 从 C 语言中借鉴了许多语法，例如预编译指令和一些高级编程语言结构。</p>
 <ol>
 <li><p>C 语言与 Verilog 的最大区别</p>
 <p> C 语言与 Verilog 的最大区别在于 C 缺乏硬件描述的 3 个基本概念：</p>
@@ -340,21 +350,21 @@
 <p> Verilog 毕竟是硬件描述语言，在抽象层次上比 C 语言要差一些，语法不如 C 灵活，例如文件输入和输出方面，Verilog 的功能显然不如 C。为了克服 Verilog 高级抽象的缺陷，Verilog 的设计者们发明了 PLI。PLI 可以在仿真器中将 C 语言的程序和 Verilog 的程序互相通信，或者在 Verilog 中调用 C 语言的函数库，这样就大大扩展了 Verilog 语言的灵活性和高层次抽象的能力。开发时，一方面，硬件设计者使用 Verilog 进行硬件建模；另一方面，验证工程师却常常使用 C 来编写测试向量，然后通过 Verilog 的 PLI 将 Verilog 和 C 联系起来。这样，C 语言就很好地弥补了 Verilog 高层次建模的缺陷。</p>
 </li>
 </ol>
-<h1 id="HDL-的设计与验证流程"><a href="#HDL-的设计与验证流程" class="headerlink" title="HDL 的设计与验证流程"></a>HDL 的设计与验证流程<a name="03"></a></h1><p>HDL 的基本功能就是有效地描述并仿真硬件系统。在此部分，抛开具体的 PLD 或 ASIC 设计流程，从 HDL 语言层次入手，分析典型的 HDL 设计与验证流程。基于 HDL 的设计、仿真流程如下图所示。图中，虚线框表示的步骤可以根据项目的复杂度省略，而实线框表示的步骤为必须执行的步骤。</p>
+<h1 id="3-HDL-的设计与验证流程"><a href="#3-HDL-的设计与验证流程" class="headerlink" title="3. HDL 的设计与验证流程"></a>3. HDL 的设计与验证流程<a name="03"></a></h1><p>HDL 的基本功能就是有效地描述并仿真硬件系统。在此部分，抛开具体的 PLD 或 ASIC 设计流程，从 HDL 语言层次入手，分析典型的 HDL 设计与验证流程。基于 HDL 的设计、仿真流程如下图所示。图中，虚线框表示的步骤可以根据项目的复杂度省略，而实线框表示的步骤为必须执行的步骤。</p>
 <div align="center">
   <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-27-josh-verilog-part-1/2020-11-27-josh-verilog-part-1-010-DesignSimulationFlowChartBasedonHDL.png?imageMogr2/thumbnail/!35p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/>
 </div>
 
 <p>下面对一些关键设计步骤与概念进行展开。</p>
-<h2 id="系统与功能模块定义（系统与功能模块级）"><a href="#系统与功能模块定义（系统与功能模块级）" class="headerlink" title="系统与功能模块定义（系统与功能模块级）"></a>系统与功能模块定义（系统与功能模块级）</h2><p>在大型系统的设计与实现中，首先要进行详细的系统规划和描述，此时 HDL 描述<strong>侧重于整体系统的划分和实现</strong>。对系统级的仿真侧重于对整个系统的功能和性能指标的考量。功能模块级设计时将系统整体功能划分为可实现的具体功能模块，大致确定模块间的接口，如时钟、读写信号、数据流、控制信号等。在有些情况下，还要根据系统要求，描述每个模块或进程的时序约束。另外在此层次，必须权衡整个系统多种的实现方式的优劣，选出系统性能指标优并且可以高效实现的设计方案。功能模块级仿真主要是考察每个功能的功能和基本时序情况。系统与功能模块级设计与仿真常常要借助于 C 语言和抽象程度较高的 HDL 语言描述，如 SystemC、Coware C、SystemVerilog、Superlog 等。</p>
-<h2 id="行为级描述测试激励（Behavioral-Level）"><a href="#行为级描述测试激励（Behavioral-Level）" class="headerlink" title="行为级描述测试激励（Behavioral Level）"></a>行为级描述测试激励（Behavioral Level）</h2><p>行为级模块描述的最大特点是<strong>必须明确每个模块间的所有接口和边界</strong>。此时模块内部的功能已经明确，模块间的所有接口，顶层的输入、输出信号等在行为级已经被清晰地描述出来。在 PLD 和 ASIC 设计流程中，常用行为级描述方式编写测试激励。延时描述、监视描述等命令都是在编写测试激励过程中常用的行为级语法。行为级描述常用 HDL 语言如 Verilog 和 VHDL 等。</p>
-<h2 id="寄存器传输级（RTL）"><a href="#寄存器传输级（RTL）" class="headerlink" title="寄存器传输级（RTL）"></a>寄存器传输级（RTL）</h2><p>寄存器传输级指不关注寄存器和组合逻辑的细节（如使用了多少逻辑门，逻辑门之间的连接拓扑结构等），<strong>通过描述寄存器到寄存器之间的逻辑功能描述电路</strong>的 HDL 层次。RTL 级是比门级更高的抽象层次，一般使用 RTL 级语言描述硬件电路比门级描述电路简单、高效得多。寄存器传输级描述的最大特点是可以直接用综合工具综合门级网表。RTL 设计直接决定着设计的功能和效率。好的 RTL 设计能在满足逻辑功能的前提下，使设计的速度和面积达到一种平衡的优化。RTL 级描述最常用的 HDL 语言是 Verilog 和 VHDL 语言。</p>
-<h2 id="对-RTL-级描述进行功能仿真"><a href="#对-RTL-级描述进行功能仿真" class="headerlink" title="对 RTL 级描述进行功能仿真"></a>对 RTL 级描述进行功能仿真</h2><p>一般来说需要对 RTL 级设计进行功能仿真，仿真的目的为<strong>验证 RTL 级描述是否与设计意图一致</strong>。为了提高效率，一般功能仿真的测试激励使用行为级的 HDL 语言描述。</p>
-<h2 id="逻辑综合（使用-RTL-级-EDA-工具）"><a href="#逻辑综合（使用-RTL-级-EDA-工具）" class="headerlink" title="逻辑综合（使用 RTL 级 EDA 工具）"></a>逻辑综合（使用 RTL 级 EDA 工具）</h2><p>RTL 级综合指<strong>将 RTL 级 HDL 语言翻译成由与、或、非门等基本逻辑单元组成的门级连接（网表），并根据设计目标与要求（约束条件）优化所生成的逻辑连接，输出门级网表文件</strong>。随着综合工具的不断智能化，使用 RTL 级语言描述硬件电路越来越方便，特别是在 PLD（主要指 FPGA 和 CPLD）设计领域，最重要的代码设计层次就是 RTL 级。</p>
-<h2 id="门级（Gate-Level）"><a href="#门级（Gate-Level）" class="headerlink" title="门级（Gate Level）"></a>门级（Gate Level）</h2><p>由于目前 FPGA 设计大多数依靠专业综合工具完成从 RTL 级代码向门级代码的转换，所有设计者直接用 HDL 语言描述门级模型的情况越来越少，高效的综合工具将设计者从复杂繁琐的门级描述中彻底解脱出来。目前直接使用门级描述的场合一般是 ASIC 和 FPGA 设计中<strong>某些面积或时序要求较高的模块</strong>。门级描述的特点是整个设计用逻辑门实现，通过逻辑门的组合显化描述了设计的引脚、功能、时钟周期等所有信息。</p>
-<h2 id="综合后门级仿真"><a href="#综合后门级仿真" class="headerlink" title="综合后门级仿真"></a>综合后门级仿真</h2><p>综合完成后，如果需要检查综合结果是否与原设计一致，就需要做综合后仿真。在仿真时，把综合生成的标准延时文件反标注到综合仿真模型中去，可估计门延时带来的影响。综合后仿真虽然比功能仿真精确一些，但是<strong>只能估计门延时，不能估计线延时</strong>，仿真结果<strong>与布线后的实际情况还有一定的差距</strong>，并不十分准确。这种仿真的主要目的在于<strong>检查综合器的综合结果是否与设计输入一致</strong>。目前主流综合工具日益成熟，对于一般性设计，如果设计者确信自己表述明确，没有综合歧义发生，则可以省略综合后仿真步骤。<strong>一般情况下，综合后仿真与功能仿真的仿真激励相同</strong>。</p>
-<h2 id="布局规划与布局布线"><a href="#布局规划与布局布线" class="headerlink" title="布局规划与布局布线"></a>布局规划与布局布线</h2><p>综合的门级结果最终要映射到目标库（如 ASIC 设计）或目标器件（如 PLD 设计）。ASIC 与 PLD 设计的相关流程在此不深究 。</p>
-<h2 id="布局布线后时序仿真与验证"><a href="#布局布线后时序仿真与验证" class="headerlink" title="布局布线后时序仿真与验证"></a>布局布线后时序仿真与验证</h2><p>将最终布局规划或布局布线的时延信息反标注到设计网表中，所进行的仿真就叫时序仿真或布局规划与布局布线后仿真，简称后仿真。布局规划与布局布线之后生成的仿真时延文件包含的时延信息最全，不仅包含门延时，还包含实际布线延时，所以时序仿真最准确，能较好地反映芯片的实际工作情况。一般来说，建议进行时序仿真步骤，通过时序仿真能检查设计时序与芯片实际运行情况是否一致，确保设计的可靠性和稳定性。时序仿真的主要目的在于发现时序违规（Timing Violation），即不满足时序约束条件或者器件固有时序规则（建立时间、保持时间等）的情况。</p>
+<h2 id="3-1-系统与功能模块定义（系统与功能模块级）"><a href="#3-1-系统与功能模块定义（系统与功能模块级）" class="headerlink" title="3.1. 系统与功能模块定义（系统与功能模块级）"></a>3.1. 系统与功能模块定义（系统与功能模块级）</h2><p>在大型系统的设计与实现中，首先要进行详细的系统规划和描述，此时 HDL 描述<strong>侧重于整体系统的划分和实现</strong>。对系统级的仿真侧重于对整个系统的功能和性能指标的考量。功能模块级设计时将系统整体功能划分为可实现的具体功能模块，大致确定模块间的接口，如时钟、读写信号、数据流、控制信号等。在有些情况下，还要根据系统要求，描述每个模块或进程的时序约束。另外在此层次，必须权衡整个系统多种的实现方式的优劣，选出系统性能指标优并且可以高效实现的设计方案。功能模块级仿真主要是考察每个功能的功能和基本时序情况。系统与功能模块级设计与仿真常常要借助于 C 语言和抽象程度较高的 HDL 语言描述，如 SystemC、Coware C、SystemVerilog、Superlog 等。</p>
+<h2 id="3-2-行为级描述测试激励（Behavioral-Level）"><a href="#3-2-行为级描述测试激励（Behavioral-Level）" class="headerlink" title="3.2. 行为级描述测试激励（Behavioral Level）"></a>3.2. 行为级描述测试激励（Behavioral Level）</h2><p>行为级模块描述的最大特点是<strong>必须明确每个模块间的所有接口和边界</strong>。此时模块内部的功能已经明确，模块间的所有接口，顶层的输入、输出信号等在行为级已经被清晰地描述出来。在 PLD 和 ASIC 设计流程中，常用行为级描述方式编写测试激励。延时描述、监视描述等命令都是在编写测试激励过程中常用的行为级语法。行为级描述常用 HDL 语言如 Verilog 和 VHDL 等。</p>
+<h2 id="3-3-寄存器传输级（RTL）"><a href="#3-3-寄存器传输级（RTL）" class="headerlink" title="3.3. 寄存器传输级（RTL）"></a>3.3. 寄存器传输级（RTL）</h2><p>寄存器传输级指不关注寄存器和组合逻辑的细节（如使用了多少逻辑门，逻辑门之间的连接拓扑结构等），<strong>通过描述寄存器到寄存器之间的逻辑功能描述电路</strong>的 HDL 层次。RTL 级是比门级更高的抽象层次，一般使用 RTL 级语言描述硬件电路比门级描述电路简单、高效得多。寄存器传输级描述的最大特点是可以直接用综合工具综合门级网表。RTL 设计直接决定着设计的功能和效率。好的 RTL 设计能在满足逻辑功能的前提下，使设计的速度和面积达到一种平衡的优化。RTL 级描述最常用的 HDL 语言是 Verilog 和 VHDL 语言。</p>
+<h2 id="3-4-对-RTL-级描述进行功能仿真"><a href="#3-4-对-RTL-级描述进行功能仿真" class="headerlink" title="3.4 对 RTL 级描述进行功能仿真"></a>3.4 对 RTL 级描述进行功能仿真</h2><p>一般来说需要对 RTL 级设计进行功能仿真，仿真的目的为<strong>验证 RTL 级描述是否与设计意图一致</strong>。为了提高效率，一般功能仿真的测试激励使用行为级的 HDL 语言描述。</p>
+<h2 id="3-5-逻辑综合（使用-RTL-级-EDA-工具）"><a href="#3-5-逻辑综合（使用-RTL-级-EDA-工具）" class="headerlink" title="3.5. 逻辑综合（使用 RTL 级 EDA 工具）"></a>3.5. 逻辑综合（使用 RTL 级 EDA 工具）</h2><p>RTL 级综合指<strong>将 RTL 级 HDL 语言翻译成由与、或、非门等基本逻辑单元组成的门级连接（网表），并根据设计目标与要求（约束条件）优化所生成的逻辑连接，输出门级网表文件</strong>。随着综合工具的不断智能化，使用 RTL 级语言描述硬件电路越来越方便，特别是在 PLD（主要指 FPGA 和 CPLD）设计领域，最重要的代码设计层次就是 RTL 级。</p>
+<h2 id="3-6-门级（Gate-Level）"><a href="#3-6-门级（Gate-Level）" class="headerlink" title="3.6. 门级（Gate Level）"></a>3.6. 门级（Gate Level）</h2><p>由于目前 FPGA 设计大多数依靠专业综合工具完成从 RTL 级代码向门级代码的转换，所有设计者直接用 HDL 语言描述门级模型的情况越来越少，高效的综合工具将设计者从复杂繁琐的门级描述中彻底解脱出来。目前直接使用门级描述的场合一般是 ASIC 和 FPGA 设计中<strong>某些面积或时序要求较高的模块</strong>。门级描述的特点是整个设计用逻辑门实现，通过逻辑门的组合显化描述了设计的引脚、功能、时钟周期等所有信息。</p>
+<h2 id="3-7-综合后门级仿真"><a href="#3-7-综合后门级仿真" class="headerlink" title="3.7. 综合后门级仿真"></a>3.7. 综合后门级仿真</h2><p>综合完成后，如果需要检查综合结果是否与原设计一致，就需要做综合后仿真。在仿真时，把综合生成的标准延时文件反标注到综合仿真模型中去，可估计门延时带来的影响。综合后仿真虽然比功能仿真精确一些，但是<strong>只能估计门延时，不能估计线延时</strong>，仿真结果<strong>与布线后的实际情况还有一定的差距</strong>，并不十分准确。这种仿真的主要目的在于<strong>检查综合器的综合结果是否与设计输入一致</strong>。目前主流综合工具日益成熟，对于一般性设计，如果设计者确信自己表述明确，没有综合歧义发生，则可以省略综合后仿真步骤。<strong>一般情况下，综合后仿真与功能仿真的仿真激励相同</strong>。</p>
+<h2 id="3-8-布局规划与布局布线"><a href="#3-8-布局规划与布局布线" class="headerlink" title="3.8. 布局规划与布局布线"></a>3.8. 布局规划与布局布线</h2><p>综合的门级结果最终要映射到目标库（如 ASIC 设计）或目标器件（如 PLD 设计）。ASIC 与 PLD 设计的相关流程在此不深究 。</p>
+<h2 id="3-9-布局布线后时序仿真与验证"><a href="#3-9-布局布线后时序仿真与验证" class="headerlink" title="3.9. 布局布线后时序仿真与验证"></a>3.9. 布局布线后时序仿真与验证</h2><p>将最终布局规划或布局布线的时延信息反标注到设计网表中，所进行的仿真就叫时序仿真或布局规划与布局布线后仿真，简称后仿真。布局规划与布局布线之后生成的仿真时延文件包含的时延信息最全，不仅包含门延时，还包含实际布线延时，所以时序仿真最准确，能较好地反映芯片的实际工作情况。一般来说，建议进行时序仿真步骤，通过时序仿真能检查设计时序与芯片实际运行情况是否一致，确保设计的可靠性和稳定性。时序仿真的主要目的在于发现时序违规（Timing Violation），即不满足时序约束条件或者器件固有时序规则（建立时间、保持时间等）的情况。</p>
 <blockquote id="fn_1">
 <sup>1</sup>. 最新的 Verilog HDL标准为 1364-2005。<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
 </blockquote>
@@ -480,7 +490,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%98%E8%BF%81"><span class="nav-number">1.</span> <span class="nav-text">设计方法的变迁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Verilog-%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">Verilog 语言的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog-%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="nav-number">2.1.</span> <span class="nav-text">Verilog 的由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog-%E5%92%8C-VHDL"><span class="nav-number">2.2.</span> <span class="nav-text">Verilog 和 VHDL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog-%E5%92%8C-C"><span class="nav-number">2.3.</span> <span class="nav-text">Verilog 和 C</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDL-%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E9%AA%8C%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">HDL 的设计与验证流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E5%AE%9A%E4%B9%89%EF%BC%88%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E7%BA%A7%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">系统与功能模块定义（系统与功能模块级）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E7%BA%A7%E6%8F%8F%E8%BF%B0%E6%B5%8B%E8%AF%95%E6%BF%80%E5%8A%B1%EF%BC%88Behavioral-Level%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">行为级描述测试激励（Behavioral Level）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E8%BE%93%E7%BA%A7%EF%BC%88RTL%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">寄存器传输级（RTL）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9-RTL-%E7%BA%A7%E6%8F%8F%E8%BF%B0%E8%BF%9B%E8%A1%8C%E5%8A%9F%E8%83%BD%E4%BB%BF%E7%9C%9F"><span class="nav-number">3.4.</span> <span class="nav-text">对 RTL 级描述进行功能仿真</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E7%BB%BC%E5%90%88%EF%BC%88%E4%BD%BF%E7%94%A8-RTL-%E7%BA%A7-EDA-%E5%B7%A5%E5%85%B7%EF%BC%89"><span class="nav-number">3.5.</span> <span class="nav-text">逻辑综合（使用 RTL 级 EDA 工具）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%A8%E7%BA%A7%EF%BC%88Gate-Level%EF%BC%89"><span class="nav-number">3.6.</span> <span class="nav-text">门级（Gate Level）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E5%90%8E%E9%97%A8%E7%BA%A7%E4%BB%BF%E7%9C%9F"><span class="nav-number">3.7.</span> <span class="nav-text">综合后门级仿真</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%92%E4%B8%8E%E5%B8%83%E5%B1%80%E5%B8%83%E7%BA%BF"><span class="nav-number">3.8.</span> <span class="nav-text">布局规划与布局布线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E5%B1%80%E5%B8%83%E7%BA%BF%E5%90%8E%E6%97%B6%E5%BA%8F%E4%BB%BF%E7%9C%9F%E4%B8%8E%E9%AA%8C%E8%AF%81"><span class="nav-number">3.9.</span> <span class="nav-text">布局布线后时序仿真与验证</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%98%E8%BF%81"><span class="nav-text">1. 设计方法的变迁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Verilog-%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">2. Verilog 语言的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Verilog-%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="nav-text">2.1. Verilog 的由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Verilog-%E5%92%8C-VHDL"><span class="nav-text">2.2. Verilog 和 VHDL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Verilog-%E5%92%8C-C"><span class="nav-text">2.3. Verilog 和 C</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-HDL-%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E9%AA%8C%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="nav-text">3. HDL 的设计与验证流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E5%AE%9A%E4%B9%89%EF%BC%88%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E7%BA%A7%EF%BC%89"><span class="nav-text">3.1. 系统与功能模块定义（系统与功能模块级）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E8%A1%8C%E4%B8%BA%E7%BA%A7%E6%8F%8F%E8%BF%B0%E6%B5%8B%E8%AF%95%E6%BF%80%E5%8A%B1%EF%BC%88Behavioral-Level%EF%BC%89"><span class="nav-text">3.2. 行为级描述测试激励（Behavioral Level）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E8%BE%93%E7%BA%A7%EF%BC%88RTL%EF%BC%89"><span class="nav-text">3.3. 寄存器传输级（RTL）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E5%AF%B9-RTL-%E7%BA%A7%E6%8F%8F%E8%BF%B0%E8%BF%9B%E8%A1%8C%E5%8A%9F%E8%83%BD%E4%BB%BF%E7%9C%9F"><span class="nav-text">3.4 对 RTL 级描述进行功能仿真</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E9%80%BB%E8%BE%91%E7%BB%BC%E5%90%88%EF%BC%88%E4%BD%BF%E7%94%A8-RTL-%E7%BA%A7-EDA-%E5%B7%A5%E5%85%B7%EF%BC%89"><span class="nav-text">3.5. 逻辑综合（使用 RTL 级 EDA 工具）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-%E9%97%A8%E7%BA%A7%EF%BC%88Gate-Level%EF%BC%89"><span class="nav-text">3.6. 门级（Gate Level）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-%E7%BB%BC%E5%90%88%E5%90%8E%E9%97%A8%E7%BA%A7%E4%BB%BF%E7%9C%9F"><span class="nav-text">3.7. 综合后门级仿真</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%92%E4%B8%8E%E5%B8%83%E5%B1%80%E5%B8%83%E7%BA%BF"><span class="nav-text">3.8. 布局规划与布局布线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9-%E5%B8%83%E5%B1%80%E5%B8%83%E7%BA%BF%E5%90%8E%E6%97%B6%E5%BA%8F%E4%BB%BF%E7%9C%9F%E4%B8%8E%E9%AA%8C%E8%AF%81"><span class="nav-text">3.9. 布局布线后时序仿真与验证</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -503,7 +513,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -574,13 +584,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">56k</span>
+    <span title="站点总字数">57k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">51 分钟</span>
+    <span title="站点阅读时长">52 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -640,6 +650,7 @@
 <script src="/js/bookmark.js"></script>
 
 
+  <script defer src="/lib/three/three.min.js"></script>
 
 
   
@@ -690,6 +701,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

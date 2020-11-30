@@ -22,21 +22,21 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"josh-gao.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"manual"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"josh-gao.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":260,"display":"post","padding":12,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"slideRightBigIn","post_header":"perspectiveLeftIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideLeftIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本文从一个 Verilog 用例出发，对 Verilog 语言的语法进行了阐释。包括的内容主要有 Verilog 语言的基本词法，常用的编译指令，逻辑值、常量、变量的含义，操作符的概念和分类等，还对 Verilog 中的参数、并发以及系统任务和系统函数进行了简要说明。 两种设计方法（Top-Down 和 Bottom-Up）在传统意义上，设计硬件电路主要是使用自底向上（Bottom-Up）的设计方">
+  <meta name="description" content="本文从一个 Verilog 用例出发，对 Verilog 语言的语法进行了阐释。包括的内容主要有 Verilog 语言的基本词法，常用的编译指令，逻辑值、常量、变量的含义，操作符的概念和分类等，还对 Verilog 中的参数、并发以及系统任务和系统函数进行了简要说明。 1. 两种设计方法（Top-Down 和 Bottom-Up）在传统意义上，设计硬件电路主要是使用自底向上（Bottom-Up）的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Josh 的学习笔记之 Verilog（Part 2 —— Verilog 语言基础）">
 <meta property="og:url" content="http://josh-gao.top/posts/fd2ca242.html">
 <meta property="og:site_name" content="Josh&#39;s Blog">
-<meta property="og:description" content="本文从一个 Verilog 用例出发，对 Verilog 语言的语法进行了阐释。包括的内容主要有 Verilog 语言的基本词法，常用的编译指令，逻辑值、常量、变量的含义，操作符的概念和分类等，还对 Verilog 中的参数、并发以及系统任务和系统函数进行了简要说明。 两种设计方法（Top-Down 和 Bottom-Up）在传统意义上，设计硬件电路主要是使用自底向上（Bottom-Up）的设计方">
+<meta property="og:description" content="本文从一个 Verilog 用例出发，对 Verilog 语言的语法进行了阐释。包括的内容主要有 Verilog 语言的基本词法，常用的编译指令，逻辑值、常量、变量的含义，操作符的概念和分类等，还对 Verilog 中的参数、并发以及系统任务和系统函数进行了简要说明。 1. 两种设计方法（Top-Down 和 Bottom-Up）在传统意义上，设计硬件电路主要是使用自底向上（Bottom-Up）的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-010-JoshVerilog.png!700px">
 <meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-020-XORGate.png!700px">
 <meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-030-DFlipFlop.png!300px">
 <meta property="article:published_time" content="2020-11-28T03:42:50.000Z">
-<meta property="article:modified_time" content="2020-11-29T17:01:57.310Z">
+<meta property="article:modified_time" content="2020-11-30T17:11:59.186Z">
 <meta property="article:author" content="Josh Gao">
 <meta property="article:tag" content="Verilog">
 <meta property="article:tag" content="HDL">
@@ -156,7 +156,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">14</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -248,7 +248,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-30 01:01:57" itemprop="dateModified" datetime="2020-11-30T01:01:57+08:00">2020-11-30</time>
+                <time title="修改时间：2020-12-01 01:11:59" itemprop="dateModified" datetime="2020-12-01T01:11:59+08:00">2020-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -286,7 +286,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>17k</span>
+              <span>18k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -306,7 +306,7 @@
 
       
         <p>本文从一个 Verilog 用例出发，对 Verilog 语言的语法进行了阐释。包括的内容主要有 Verilog 语言的基本词法，常用的编译指令，逻辑值、常量、变量的含义，操作符的概念和分类等，还对 Verilog 中的参数、并发以及系统任务和系统函数进行了简要说明。</p>
-<h1 id="两种设计方法（Top-Down-和-Bottom-Up）"><a href="#两种设计方法（Top-Down-和-Bottom-Up）" class="headerlink" title="两种设计方法（Top-Down 和 Bottom-Up）"></a>两种设计方法（Top-Down 和 Bottom-Up）</h1><p>在传统意义上，设计硬件电路主要是使用自底向上（Bottom-Up）的设计方法。工程师们总是从最底层的逻辑门开始，逐渐搭建成较大的模块，然后再将这些模块组成更大的模块，最后形成整个设计。</p>
+<h1 id="1-两种设计方法（Top-Down-和-Bottom-Up）"><a href="#1-两种设计方法（Top-Down-和-Bottom-Up）" class="headerlink" title="1. 两种设计方法（Top-Down 和 Bottom-Up）"></a>1. 两种设计方法（Top-Down 和 Bottom-Up）</h1><p>在传统意义上，设计硬件电路主要是使用自底向上（Bottom-Up）的设计方法。工程师们总是从最底层的逻辑门开始，逐渐搭建成较大的模块，然后再将这些模块组成更大的模块，最后形成整个设计。</p>
 <p>在  <a href="https://josh-gao.top/posts/460433dd.html">Part 1——初识 HDL 设计方法</a>中已经提到，随着 HDL 和逻辑综合技术的进步，工程师们逐渐可以使用自顶向下（Top-Down）的方法来设计硬件。这样，工程师们<strong>首先关注于设计的规格（Specification），然后将规格分解为一个个模块，再分解为更小的模块</strong>。然后采用 HDL 的可综合子集直接描述硬件的行为，由逻辑综合工具自动完成由 HDL 到门级电路的转换。</p>
 <a id="more"></a>
 <p>最近几年，随着 IP核 市场的逐渐兴起，许多设计者逐渐意识到<strong>利用现有的 IP核 可以帮助节约设计成本、减少设计周期</strong>，有许多设计工程师，甚至希望所有的设计模块都使用现成的模块，自己仅仅开发一些简单的粘合逻辑。这就有点像电路板设计的过程，工程师将各种芯片集成到一块电路板上，自己完成这些芯片间的互连和一些简单的 CPLD 逻辑设计，以及对微处理器的编程。使用现有的 IP 来搭建系统实际上也是一种自底向上（Bottom-Up）的设计方法。</p>
@@ -319,7 +319,7 @@
 <p>EDA 行业的先行者们发明了 Verilog 硬件描述语言，其最根本的目的就是用 Verilog 来描述硬件的行为，但是有的描述是不需要实现为硬件电路的。</p>
 <p>如果用户的 Verilog 描述的最终目的是要实现为硬件电路，那么要<strong>时刻提醒自己是在设计电路</strong>，这与用 C 语言对处理器编程有很大的区别。</p>
 <p>硬件电路最大的特点是由一个个模块组成，模块之间使用互连线，各个模块<strong>独立并行</strong>工作。同时，它们通过输人和输出端口与相邻的模块互相沟通。每个硬件单元都有相应的<strong>延时特性</strong>，硬件的延时也是设计的目标之一。</p>
-<h1 id="从-Verilog-实例出发"><a href="#从-Verilog-实例出发" class="headerlink" title="从 Verilog 实例出发"></a>从 Verilog 实例出发</h1><h2 id="Verilog-实例"><a href="#Verilog-实例" class="headerlink" title="Verilog 实例"></a>Verilog 实例</h2><p><a name="JoshVerilog模块"></a>首先看一个简单的如下图所示的电路（模块）：JoshVerilog。它可以是一个独立的设计，也可以是更大的系统的一个组成部分。</p>
+<h1 id="2-从-Verilog-实例出发"><a href="#2-从-Verilog-实例出发" class="headerlink" title="2. 从 Verilog 实例出发"></a>2. 从 Verilog 实例出发</h1><h2 id="2-1-Verilog-实例"><a href="#2-1-Verilog-实例" class="headerlink" title="2.1. Verilog 实例"></a>2.1. Verilog 实例</h2><p><a name="JoshVerilog模块"></a>首先看一个简单的如下图所示的电路（模块）：JoshVerilog。它可以是一个独立的设计，也可以是更大的系统的一个组成部分。</p>
 <div align="center">
   <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-28-josh-verilog-part-2/2020-11-28-josh-verilog-part-2-010-JoshVerilog.png!700px"/>
 </div>
@@ -355,7 +355,7 @@
 <p> 这种<strong>在模块中实例化其他功能模块</strong>的描述方式被称之为<strong>结构化描述</strong>。</p>
 </li>
 </ol>
-<h2 id="3-种描述方法"><a href="#3-种描述方法" class="headerlink" title="3 种描述方法"></a>3 种描述方法</h2><p>从以上的描述可以看出 Verilog 语言的 3 种基本的描述方法（基本上所有的 Verilog 功能模块都是由这 3 种方式来描述）：</p>
+<h2 id="2-2-3-种描述方法"><a href="#2-2-3-种描述方法" class="headerlink" title="2.2. 3 种描述方法"></a>2.2. 3 种描述方法</h2><p>从以上的描述可以看出 Verilog 语言的 3 种基本的描述方法（基本上所有的 Verilog 功能模块都是由这 3 种方式来描述）：</p>
 <ul>
 <li><strong>数据流描述</strong>：采用 <code>assign</code> 语句，该语句被称为连续赋值语句；</li>
 <li><strong>行为描述</strong>：使用 <code>always</code> 或 <code>initial</code> 语句块，其中出现的语句被称为过程赋值语句；</li>
@@ -368,7 +368,7 @@
 </li>
 </ul>
 <p>在<a target="_blank" rel="noopener" href="https://josh-gao.blog.csdn.net/article/details/105262549">《Part 3——描述方式和设计层次》</a>中会将详细介绍 Verilog 语言中的这 3 种描述方式。</p>
-<h1 id="Verilog-的基本词法"><a href="#Verilog-的基本词法" class="headerlink" title="Verilog 的基本词法"></a>Verilog 的基本词法</h1><p>Verilog HDL 是一种<strong>大小写敏感</strong>的语言，这一点与 VHDL 不同，因此在书写的时候要格外注意。在 Verilog 语言中，<strong>所有的关键字（又叫保留字）都为小写</strong>。Verilog 的内部信号名（或称为标识符）使用大写和小写都可以。标识符可以是字母、数字、<code>$</code>（美元符号）和 <code>_</code>（下划线）任意组合，只要<strong>第一个字符是字母或者下划线</strong>即可。</p>
+<h1 id="3-Verilog-的基本词法"><a href="#3-Verilog-的基本词法" class="headerlink" title="3. Verilog 的基本词法"></a>3. Verilog 的基本词法</h1><p>Verilog HDL 是一种<strong>大小写敏感</strong>的语言，这一点与 VHDL 不同，因此在书写的时候要格外注意。在 Verilog 语言中，<strong>所有的关键字（又叫保留字）都为小写</strong>。Verilog 的内部信号名（或称为标识符）使用大写和小写都可以。标识符可以是字母、数字、<code>$</code>（美元符号）和 <code>_</code>（下划线）任意组合，只要<strong>第一个字符是字母或者下划线</strong>即可。</p>
 <blockquote>
 <p>因为 Verilog HDL 对大小写敏感，因此养成良好的信号定义习惯非常重要，否则容易因为大小写不同造成信号的歧义。推荐的信号定义习惯为：<strong>所有信号和网线名均小写，用下划线分割单词，而宏变量全部用大写字母。</strong></p>
 </blockquote>
@@ -383,7 +383,7 @@
 <p>也可以用换行符将其分开：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">reg</span> eq0;</span><br><span class="line"><span class="keyword">reg</span> eq1;</span><br><span class="line"><span class="keyword">reg</span> eq2;</span><br><span class="line"><span class="keyword">reg</span> eq3;</span><br></pre></td></tr></table></figure>
 <p>在verilog中，还有一些转义字符。比如 <code>\n</code> 表示换行符；<code>\t</code> 表示 Tab 键；防止引起歧义，就用 <code>\</code> 表示 <code>\</code> 符号本身等等。这里不再对 Verilog 的词法做过多的描述，更多可以参考 Verilog IEEE 国际标准（<a target="_blank" rel="noopener" href="https://standards.ieee.org/standard/1364-2005.html">IEEE Std. 1364-2005</a>）。</p>
-<h1 id="模块和端口"><a href="#模块和端口" class="headerlink" title="模块和端口"></a>模块和端口</h1><p>大型设计往往是由一个个模块构成的。实际上，模块可大可小，大到一个复杂的微处理器系统，小到一个基本的晶体管，都可以作为一个模块来设计。例如，在上述代码中描述的 <a href="#JoshVerilog代码">JoshVerilog</a> 就是一个模块。</p>
+<h1 id="4-模块和端口"><a href="#4-模块和端口" class="headerlink" title="4. 模块和端口"></a>4. 模块和端口</h1><p>大型设计往往是由一个个模块构成的。实际上，模块可大可小，大到一个复杂的微处理器系统，小到一个基本的晶体管，都可以作为一个模块来设计。例如，在上述代码中描述的 <a href="#JoshVerilog代码">JoshVerilog</a> 就是一个模块。</p>
 <p>在 Verilog 中，模块（module）是基本的组成单位。</p>
 <blockquote>
 <p>通常，建议在一个 Verilog 文件中，只放一个 <code>module</code> 定义，而且使文件名称和 <code>module</code> 名称一致。这是一个良好的设计习惯。</p>
@@ -416,7 +416,7 @@
 <blockquote>
 <p>需要格外注意的是，以上几种语句如果出现在同一个 <code>module</code> 内，其<strong>相互之间是没有任何顺序关系的</strong>，它们在 <code>module</code> 中出现顺序的改变不会改变 <code>module</code> 的功能，这正是硬件的一大特点。有硬件电路原理图设计经验的读者们可以想象一下画原理图的过程，先画哪个，后画哪个器件根本没有任何关系。在 Verilog 中也是类似的道理。</p>
 </blockquote>
-<h1 id="编译指令"><a href="#编译指令" class="headerlink" title="编译指令"></a>编译指令</h1><p>在 Verilog 语言中，提供了一些编译指令，用于指导编译器的工作。例如，定义宏、文件包含、条件编译、时间单位和精度定义等。</p>
+<h1 id="5-编译指令"><a href="#5-编译指令" class="headerlink" title="5. 编译指令"></a>5. 编译指令</h1><p>在 Verilog 语言中，提供了一些编译指令，用于指导编译器的工作。例如，定义宏、文件包含、条件编译、时间单位和精度定义等。</p>
 <p>Verilog 中的编译指令是从 C 语言中的“预处理指令”演变得来的。这里列出了一些常用的编译指令如下：</p>
 <ul>
 <li><code>`timescale</code>；</li>
@@ -426,28 +426,28 @@
 <li><code>`resetall</code>。</li>
 </ul>
 <p>与 C 语言中使用的 <code>#</code> 不同，Verilog 中使用反引号一来标识编译指令。编译器一旦遇到某个编译指令，则其在整个编译过程中有效，可以包含多个文件，直到编译器遇到另一个相同的编译指令。</p>
-<h2 id="timescale"><a href="#timescale" class="headerlink" title="`timescale"></a><code>`timescale</code></h2><p>在每一个 <code>module</code> 文件前面加上<code>` </code>的编译指令，就可以保证该文件中的延时信息受其自身文件中的 <code>`timescale</code> 编译指令指导。<strong>否则在编译过程中，该模块将沿用上一个</strong> <code>`timescale</code> <strong>的值，或者使用缺省值</strong>。</p>
+<h2 id="5-1-timescale"><a href="#5-1-timescale" class="headerlink" title="5.1. `timescale"></a>5.1. <code>`timescale</code></h2><p>在每一个 <code>module</code> 文件前面加上<code>` </code>的编译指令，就可以保证该文件中的延时信息受其自身文件中的 <code>`timescale</code> 编译指令指导。<strong>否则在编译过程中，该模块将沿用上一个</strong> <code>`timescale</code> <strong>的值，或者使用缺省值</strong>。</p>
 <p>在上述实例代码中描述的 <a href="#JoshVerilog代码">JoshVerilog</a> 模块中使用了一个<code>`timescale 1ns/100ps</code> 编译指令。其中 <code>1ns</code> 表示延时单位，<code>100ps</code> 表示时间精度，也就是编译器所能接收的最小仿真时间粒度。<code>`timescale</code> 编译指令在模块外部出现，并且影响后面模块中所有的时延值，直到遇到下一个 <code>`timescale</code> 或 <code>`resetall</code>指令。</p>
 <p>比如语句：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> #<span class="number">1</span><span class="variable">.16</span> A_xor_wire = eq0 ^ eq1;</span><br></pre></td></tr></table></figure>
 <p>如果采用 <code>`timescale 1ns/100ps</code> 编译指令由于延时单位是 <code>1ns</code>，同时最小时间粒度是 <code>100ps</code>，即 <code>0.1ns</code> ，那么根据四舍五入的规则，<code>1.16ns</code> 则实际上对应 <code>1.2ns</code> 延时。如果采用 <code>`timescale 1ns/10ps</code> 编译指令，由于延时单位是 <code>1ns</code>，同时最小时间粒度是 <code>10ps</code>，即 <code>0.01ns</code>，那么 <code>1.16ns</code> 则实际上对应 <code>1.16ns</code> 延时。</p>
-<h2 id="define-和-undef"><a href="#define-和-undef" class="headerlink" title="`define 和 `undef"></a><code>`define</code> 和 <code>`undef</code></h2><p><code>`define</code> 用于定义宏。例如，首先定义一个总线宽度的宏为 16，然后利用这个宏定义一个宽度为 16 的 <code>reg</code>类型数据 <code>Data</code>，方法如下：</p>
+<h2 id="5-2-define-和-undef"><a href="#5-2-define-和-undef" class="headerlink" title="5.2. `define 和 `undef"></a>5.2. <code>`define</code> 和 <code>`undef</code></h2><p><code>`define</code> 用于定义宏。例如，首先定义一个总线宽度的宏为 16，然后利用这个宏定义一个宽度为 16 的 <code>reg</code>类型数据 <code>Data</code>，方法如下：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="meta-keyword">define</span> BUS_WIDTH 16</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="meta">`BUS_WIDTH - 1 : 0] Data</span></span><br></pre></td></tr></table></figure>
 <p>在一个文件中出现的 <code>`define</code>，可以被多个文件使用。也就是说 <code>`define</code> 是一种<strong>全局的定义</strong>。这是 <code>`define</code> 与 <code>parameter</code> 定义的最大区别，在后面也会提到。</p>
 <p><code>`define</code> 指令被编译以后，则在整个编译过程中都有效，直到遇到 <code>`undef</code> 指令，该宏就不再有效。如下：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="meta-keyword">undef</span> BUS_WIDTH</span></span><br></pre></td></tr></table></figure>
 <p>遇到该编译指令后，先前的 <code>`define</code> 指令失效。</p>
-<h2 id="ifdef、-else-和-endif"><a href="#ifdef、-else-和-endif" class="headerlink" title="`ifdef、`else 和`endif"></a><code>`ifdef</code>、<code>`else</code> 和<code>`endif</code></h2><p>再来看看如下的条件编译指令：</p>
+<h2 id="5-3-ifdef、-else-和-endif"><a href="#5-3-ifdef、-else-和-endif" class="headerlink" title="5.3. `ifdef、`else 和`endif"></a>5.3. <code>`ifdef</code>、<code>`else</code> 和<code>`endif</code></h2><p>再来看看如下的条件编译指令：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="meta-keyword">ifdef</span> NARROW</span></span><br><span class="line">    <span class="keyword">parameter</span> BUS_WIDTH = <span class="number">16</span>；</span><br><span class="line"><span class="meta">`<span class="meta-keyword">else</span></span></span><br><span class="line">    paramete rBUS_WIDTH = <span class="number">32</span>；</span><br><span class="line"><span class="meta">`<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 <p>在这个条件编译指令中，如果先前已经定义了 <code>NARROW</code> 宏，那么参数 <code>BUS_WIDTH</code> 被设置为 16，否则其被设置为 32。<code>`else</code> 指令对于 <code>`ifdef</code> 来说是可选的，也就是说可以单独使用。</p>
-<h2 id="include"><a href="#include" class="headerlink" title="`include"></a><code>`include</code></h2><p>在 Verilog 中，可以使用 <code>`include</code> 指令来嵌人某个文件的内容。例如：</p>
+<h2 id="5-4-include"><a href="#5-4-include" class="headerlink" title="5.4. `include"></a>5.4. <code>`include</code></h2><p>在 Verilog 中，可以使用 <code>`include</code> 指令来嵌人某个文件的内容。例如：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="meta-keyword">include</span> &quot;HEADFILE.h&quot;</span></span><br></pre></td></tr></table></figure>
 <p>那么，在编译的时候，就将使用 <code>HEADFILE.h</code> 文件中的内容完全替换这一行语句。而双引号中的文件可以使用相对路径，或绝对路径，或者默认在当前路径以下。</p>
-<h2 id="resetall"><a href="#resetall" class="headerlink" title="`resetall"></a><code>`resetall</code></h2><p><code>`resetall</code> 编译指令会将所有其他编译指令重新设置为缺省值，要谨慎使用。</p>
+<h2 id="5-5-resetall"><a href="#5-5-resetall" class="headerlink" title="5.5. `resetall"></a>5.5. <code>`resetall</code></h2><p><code>`resetall</code> 编译指令会将所有其他编译指令重新设置为缺省值，要谨慎使用。</p>
 <blockquote>
 <p>Verilog 语言中的编译指令不止这几条，其他不常用的指令这里不一一介绍，有兴趣可以参考其他文献。</p>
 </blockquote>
-<h1 id="逻辑值与常量"><a href="#逻辑值与常量" class="headerlink" title="逻辑值与常量"></a>逻辑值与常量</h1><h2 id="逻辑值"><a href="#逻辑值" class="headerlink" title="逻辑值"></a>逻辑值</h2><p>在二进制计数中，单位逻辑值只有 <code>1</code> 和 <code>0</code> 两种状态。而在 Verilog 语言中，为了对电路进行精确建模，于是增加了两种逻辑状态 <code>X</code> 和 <code>Z</code>。</p>
+<h1 id="6-逻辑值与常量"><a href="#6-逻辑值与常量" class="headerlink" title="6. 逻辑值与常量"></a>6. 逻辑值与常量</h1><h2 id="6-1-逻辑值"><a href="#6-1-逻辑值" class="headerlink" title="6.1. 逻辑值"></a>6.1. 逻辑值</h2><p>在二进制计数中，单位逻辑值只有 <code>1</code> 和 <code>0</code> 两种状态。而在 Verilog 语言中，为了对电路进行精确建模，于是增加了两种逻辑状态 <code>X</code> 和 <code>Z</code>。</p>
 <ul>
 <li><code>X</code> 表示未知值（unknown），或者不关心（don’t care），<code>X</code> 用作信号状态时表示未知，用在条件判断时（在 <code>casex</code> 或 <code>casez</code>中）表示不关心；</li>
 <li><code>Z</code> 表示高阻状态，也就是<strong>没有任何驱动</strong>，通常用来对<strong>三态总线</strong>进行建模。</li>
@@ -457,14 +457,14 @@
 <p>但是，对综合工具而言（或者说在实际电路中），并没有什么 <code>X</code> 值，只存在 <code>0</code>、<code>1</code> 和 <code>Z</code> 这 3 种状态。在实际电路中还可能出现亚稳态，它既不是 <code>0</code>，也不是 <code>1</code>，是一种暂时的不稳定状态。</p>
 </blockquote>
 <p>Verilog 语言中所有数据都是由以上描述的 4 种基本的逻辑值 <code>0</code>、<code>1</code>、<code>X</code> 和 <code>Z</code> 构成。同时，<code>X</code> 和 <code>Z</code> 是不区分大小写的。例如：<code>0z1x</code> 和 <code>0Z1X</code> 表示同一个数据。</p>
-<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>常量是 Verilog 中不变的数值。在上述<a href="#JoshVerilog代码">实例代码</a>中，<code>4&#39;b0001</code> 就表示一个 4 位的二进制整型常量：0001。</p>
+<h2 id="6-2-常量"><a href="#6-2-常量" class="headerlink" title="6.2. 常量"></a>6.2. 常量</h2><p>常量是 Verilog 中不变的数值。在上述<a href="#JoshVerilog代码">实例代码</a>中，<code>4&#39;b0001</code> 就表示一个 4 位的二进制整型常量：0001。</p>
 <p>Verilog中的常量有3种：</p>
 <ul>
 <li>整数型；</li>
 <li>实数型；</li>
 <li>字符串型。</li>
 </ul>
-<h3 id="整型常量"><a href="#整型常量" class="headerlink" title="整型常量"></a>整型常量</h3><p>可以使用简单的十进制表示一个整型常量，例如：</p>
+<h3 id="6-2-1-整型常量"><a href="#6-2-1-整型常量" class="headerlink" title="6.2.1. 整型常量"></a>6.2.1. 整型常量</h3><p>可以使用简单的十进制表示一个整型常量，例如：</p>
 <ul>
 <li><code>16</code> 表示十进制的 16；</li>
 <li><code>-15</code> 表示十进制的 -15，用二进制补码表示，至少需要 5 位，即 10001，最高一位为符号位；如果用 6 位表示，则是 110001，同样最高一位为符号位。</li>
@@ -482,12 +482,12 @@
 <p>如果将数字写成 <code>&#39;haa</code>，那么这个十六进制数的长度就决定于数字本身的长度。</p>
 <p>在基数表示法中，如果遇到 <code>X</code>，十六进制数中表示 4 个 <code>X</code>，八进制数中表示 3 个 <code>X</code>。</p>
 <p>另外，数字中的下划线没有任何意义，只是增强可读性。例如：<code>4&#39;b1011</code> 和 <code>4&#39;b10_11</code> 一样。</p>
-<h3 id="实数型常量"><a href="#实数型常量" class="headerlink" title="实数型常量"></a>实数型常量</h3><p>Verilog 语言中的实数型变量可以采用十进制，也可以采用科学计数法，例如：</p>
+<h3 id="6-2-2-实数型常量"><a href="#6-2-2-实数型常量" class="headerlink" title="6.2.2. 实数型常量"></a>6.2.2. 实数型常量</h3><p>Verilog 语言中的实数型变量可以采用十进制，也可以采用科学计数法，例如：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span><span class="variable">.512</span></span><br><span class="line"><span class="number">13_2</span><span class="variable">.18e2</span>       <span class="comment">// 表示13218</span></span><br></pre></td></tr></table></figure>
-<h3 id="字符串型常量"><a href="#字符串型常量" class="headerlink" title="字符串型常量"></a>字符串型常量</h3><p>字符串是双引号中的字符序列，例如：<code>&quot;HeIIo World&quot;</code>。字符串是 8 位 ASCII 码值的序列，<code>&quot;HeIIo World&quot;</code> 就需要 11 字节存储，方法如下：</p>
+<h3 id="6-2-3-字符串型常量"><a href="#6-2-3-字符串型常量" class="headerlink" title="6.2.3. 字符串型常量"></a>6.2.3. 字符串型常量</h3><p>字符串是双引号中的字符序列，例如：<code>&quot;HeIIo World&quot;</code>。字符串是 8 位 ASCII 码值的序列，<code>&quot;HeIIo World&quot;</code> 就需要 11 字节存储，方法如下：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">reg</span>[<span class="number">1</span>:<span class="number">8</span> * <span class="number">11</span>] Message;</span><br><span class="line">Message = <span class="string">&quot;HeIIo World&quot;</span>;</span><br></pre></td></tr></table></figure>
 <p>这样就将字符串常量存人到 Message 变量中。</p>
-<h1 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h1><p>在 Verilog 语言中，有两大变量类型：</p>
+<h1 id="7-变量类型"><a href="#7-变量类型" class="headerlink" title="7. 变量类型"></a>7. 变量类型</h1><p>在 Verilog 语言中，有两大变量类型：</p>
 <ul>
 <li>线网型：表示电路间的物理连线。</li>
 <li>寄存器型：Verilog 中的一个抽象的存储数据单元。</li>
@@ -497,7 +497,7 @@
 <li><strong>凡是在</strong> <code>always</code> <strong>或</strong> <code>initial</code> <strong>语句中赋值的变量，一定是寄存器变量</strong>；</li>
 <li><strong>在</strong> <code>assign</code> <strong>中赋值的一定是线网变量</strong>。</li>
 </ul>
-<h2 id="线网类型"><a href="#线网类型" class="headerlink" title="线网类型"></a>线网类型</h2><p>在线网类型下，分为几种子类，它们具有线网的共性：</p>
+<h2 id="7-1-线网类型"><a href="#7-1-线网类型" class="headerlink" title="7.1. 线网类型"></a>7.1. 线网类型</h2><p>在线网类型下，分为几种子类，它们具有线网的共性：</p>
 <ul>
 <li><code>wire</code>、<code>tri</code>：表示电路间连线，<code>tri</code> 主要用于多驱动源建模；</li>
 <li><code>wor</code>、<code>trior</code>：表示该连线具有“线或”功能；</li>
@@ -509,14 +509,14 @@
 <p>在以上描述的线网类型中，除了 <code>trireg</code> 未初始化时为 <code>X</code> 以外，其余的未初始化时的值为 <code>Z</code>。</p>
 <p>线网类型主要用在连续赋值语句中，以及作为模块之间的互连信号。</p>
 <p>在后面的内容中会详细阐述常用线网类型的使用方法。</p>
-<h2 id="寄存器类型"><a href="#寄存器类型" class="headerlink" title="寄存器类型"></a>寄存器类型</h2><p>寄存器类型变量在 Verilog 语言中通常表示一个存储数据的空间。尤其是在 Verilog 仿真器中，寄存器类型变量通常占据一个仿真内存空间。</p>
+<h2 id="7-2-寄存器类型"><a href="#7-2-寄存器类型" class="headerlink" title="7.2. 寄存器类型"></a>7.2. 寄存器类型</h2><p>寄存器类型变量在 Verilog 语言中通常表示一个存储数据的空间。尤其是在 Verilog 仿真器中，寄存器类型变量通常占据一个仿真内存空间。</p>
 <ul>
 <li><code>reg</code>：是最常用的寄存器类型数，可以是 1 位或者多位，或者是二维数组（存储器）；</li>
 <li><code>integer</code>：整型数据，存储一个至少 32 位</li>
 <li><code>time</code>：时间类型，存储一个至少 64 位的时间值；</li>
 <li><code>real</code>，<code>realtime</code>：实数和实数时间寄存器。</li>
 </ul>
-<h3 id="reg-类型"><a href="#reg-类型" class="headerlink" title="reg 类型"></a><code>reg</code> 类型</h3><ol>
+<h3 id="7-2-1-reg-类型"><a href="#7-2-1-reg-类型" class="headerlink" title="7.2.1 reg 类型"></a>7.2.1 <code>reg</code> 类型</h3><ol>
 <li><p>寄存器类型数</p>
 <p> <code>reg</code> 类型可以定位为一个寄存器，可以定义一位或者多位，例如：</p>
  <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">reg</span>         AB;             <span class="comment">// 定义一个名为 AB 的 1 位寄存器</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>]   ABC;            <span class="comment">// 定义一个名为 ABC 的 4 位寄存器</span></span><br></pre></td></tr></table></figure>
@@ -532,13 +532,13 @@
 <p> 同时，在 Verilog 中，不存可以对整个存储器赋值的语句，必须对每个单元独立赋值。除非使用 <code>$readmemb</code> 或 <code>$readmemh</code> 系统任务从文件中读入整个或者部分存储器的数据。</p>
 </li>
 </ol>
-<h3 id="integer-类型"><a href="#integer-类型" class="headerlink" title="integer 类型"></a><code>integer</code> 类型</h3><p><code>integer</code> 变量通常用于高层次建模，也常用在 <code>for</code> 语句的索引中，例如：</p>
+<h3 id="7-2-2-integer-类型"><a href="#7-2-2-integer-类型" class="headerlink" title="7.2.2. integer 类型"></a>7.2.2. <code>integer</code> 类型</h3><p><code>integer</code> 变量通常用于高层次建模，也常用在 <code>for</code> 语句的索引中，例如：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">initial</span></span><br><span class="line"><span class="keyword">begin</span>: ACCESS</span><br><span class="line">    <span class="keyword">integer</span> i;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">7</span>; i = i + <span class="number">1</span> )        <span class="comment">// 定义一个整数变量 i</span></span><br><span class="line">        MEMABC[i] = i                       <span class="comment">// 遍历 0～7 地址</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h3 id="其他寄存器类型"><a href="#其他寄存器类型" class="headerlink" title="其他寄存器类型"></a>其他寄存器类型</h3><p>另外，<code>time</code> 变量用于存储和处理系统时间，<code>real</code> 和 <code>realtime</code> 用来存储实数和实数时间。</p>
-<h2 id="7-3-变量的物理含义"><a href="#7-3-变量的物理含义" class="headerlink" title="7.3 变量的物理含义"></a>7.3 变量的物理含义</h2><p>这里需要引起重视，<strong>“线网”变量可以理解为电路模块中的连线，但“寄存器”并不严格对应于电路上的存储单元</strong>，包括触发器（flip-flop）或锁存器（latch）。从纯粹语言表达的语义角度来说，寄存器类型变量的值，从一个赋值到下一个赋值被保存下来，并且在仿真过程中会保持而不会丢失。</p>
+<h3 id="7-2-3-其他寄存器类型"><a href="#7-2-3-其他寄存器类型" class="headerlink" title="7.2.3. 其他寄存器类型"></a>7.2.3. 其他寄存器类型</h3><p>另外，<code>time</code> 变量用于存储和处理系统时间，<code>real</code> 和 <code>realtime</code> 用来存储实数和实数时间。</p>
+<h2 id="7-3-变量的物理含义"><a href="#7-3-变量的物理含义" class="headerlink" title="7.3. 变量的物理含义"></a>7.3. 变量的物理含义</h2><p>这里需要引起重视，<strong>“线网”变量可以理解为电路模块中的连线，但“寄存器”并不严格对应于电路上的存储单元</strong>，包括触发器（flip-flop）或锁存器（latch）。从纯粹语言表达的语义角度来说，寄存器类型变量的值，从一个赋值到下一个赋值被保存下来，并且在仿真过程中会保持而不会丢失。</p>
 <p>实际上，从语义上来讲，在 Verilog 仿真工具对语言进行仿真的时候，<strong>寄存器类型的变量是占用仿真环境的物理内存的</strong>，这与 C 语言中的变量类似。寄存器在被赋值后，便一直保存在内存中，保持该值不变，直到再次对该寄存器变量进行赋值。而<strong>线网类型是不占用仿内存的</strong>，它的值是由当前所有驱动该线网的其他变量（可以是寄存器或线网）决定的。这是寄存器和线网最大的区别，也是当初 Verilog 的发明者定义“线网”和“寄存器”变量的根本动机。</p>
 <p>在下一小节中，将引人“驱动”和“赋值”两个概念，深人探讨两种变量的含义。</p>
-<h2 id="驱动和赋值"><a href="#驱动和赋值" class="headerlink" title="驱动和赋值"></a>驱动和赋值</h2><p>为了更清楚地描述寄存器和线网变量的概念，将以上述<a href="#JoshVerilog代码">实例代码</a>中的语句来说明。首先，引人Verilog 语言中两个重要的概念：驱动（Driving）和赋值（Assigning)。</p>
+<h2 id="7-4-驱动和赋值"><a href="#7-4-驱动和赋值" class="headerlink" title="7.4. 驱动和赋值"></a>7.4. 驱动和赋值</h2><p>为了更清楚地描述寄存器和线网变量的概念，将以上述<a href="#JoshVerilog代码">实例代码</a>中的语句来说明。首先，引人Verilog 语言中两个重要的概念：驱动（Driving）和赋值（Assigning)。</p>
 <ul>
 <li><strong>线网是被驱动的，该值不被保持，在任意一个仿真步进上都需要重新计算</strong>；</li>
 <li><strong>寄存器是被赋值的，且该值在仿真过程中被保持，直到下一个赋值的出现</strong>。</li>
@@ -568,12 +568,12 @@
 <p>D 触发器只对时钟和复位（置位）敏感，因此在敏感列表中，列出了 <code>clk</code> 的上升沿和 <code>rst_n</code> 的下降沿。如果 <code>rst_n</code> 为 0，就对触发器的输出复位，否则在 <code>clk</code> 的时钟上升沿发生的时候，将输人的 <code>A_xor_wire</code> 寄存到触发器的输出端 <code>A_xor_out</code>。</p>
 <p>这样的代码精确地描述了一个 D 触发器的行为。这里的 <code>reg</code> 变量就对应了硬件中的 D 触发器。</p>
 <p>在叙述时，为了简单起见，常常将“驱动”和“赋值”都统一说成是赋值，但是一定要清楚其中的本质。</p>
-<h1 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h1><p>参数是一种常量，通常出现在 <code>module</code> 内部。它常常被用作定义状态机的状态、数据位宽和延时大小等等。例如：</p>
+<h1 id="8-参数"><a href="#8-参数" class="headerlink" title="8. 参数"></a>8. 参数</h1><p>参数是一种常量，通常出现在 <code>module</code> 内部。它常常被用作定义状态机的状态、数据位宽和延时大小等等。例如：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">parameter</span> and_delay = <span class="number">2</span>；</span><br><span class="line"><span class="keyword">parameter</span> xor_delay = <span class="number">4</span>；</span><br></pre></td></tr></table></figure>
 <p><strong>参数的值可以在编译时被改变</strong>，因此它又<strong>经常被用于一些参数可调的模块中</strong>，让用户在实例化模块时，根据需要配置参数。</p>
 <p>前面介绍的 <code>`define</code> 是一种全局的定义，而 <code>parameter</code> 是出现在模块内部的<strong>局部定义</strong>，而且可以被<strong>灵活改变</strong>，这是 <code>parameter</code> 的一个重要特征。</p>
 <p>在<a target="_blank" rel="noopener" href="https://josh-gao.blog.csdn.net/article/details/105262549#42__865">《Part 3——描述方式和设计层次》的 4.2 小节</a>中会详细探讨改变模块参数的方法。</p>
-<h1 id="Verilog-中的并发与顺序"><a href="#Verilog-中的并发与顺序" class="headerlink" title="Verilog 中的并发与顺序"></a>Verilog 中的并发与顺序</h1><p>并行概念是硬件中的一个非常重要的概念，特别是初学者或软件工程师们需要重点理解。</p>
+<h1 id="9-Verilog-中的并发与顺序"><a href="#9-Verilog-中的并发与顺序" class="headerlink" title="9. Verilog 中的并发与顺序"></a>9. Verilog 中的并发与顺序</h1><p>并行概念是硬件中的一个非常重要的概念，特别是初学者或软件工程师们需要重点理解。</p>
 <p>与在处理器上运行的软件不同的是，<strong>硬件电路之间的工作是并行的</strong>。</p>
 <p>为了描述硬件的并行性，Verilog 语言本身就具有并发的特性。在 Verilog 语言的 <code>module</code> 中，所有的描述语句（包括连续赋值语句，行为语句块：<code>always</code> 和 <code>initial</code>，模块实例化等）之间都是并行发生的。任何功能描述语句，在 Verilog 的 module 中的顺序都不重要。</p>
 <p>但是，在语句块（<code>always</code> 和 <code>initial</code>）内部，则可以存在两种语句组：</p>
@@ -585,7 +585,7 @@
 <p>相比较顺序运行的事物，并行的事物比较难以理解和建模。同时，用于仿真的计算机是串行执行的，而 Verilog 语言本身的语义是用计算机进行模拟的语义，是用一种串行的语义来模拟并行的硬件。</p>
 <p>Verilog 仿真器用来模拟硬件的并行行为的方式类似于软件中的多任务操作系统，在某个时刻只能执行一个任务，这样，不同的任务之间看起来是并行执行的。</p>
 <p>后续将会重点介绍 Verilog 语言中的这一并行特性，同时阐述 Verilog 的高级仿真原理，希望能帮助大家领会 Verilog 的语义精髓。</p>
-<h1 id="操作数、操作符和表达式"><a href="#操作数、操作符和表达式" class="headerlink" title="操作数、操作符和表达式"></a>操作数、操作符和表达式</h1><h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><p>操作符是操作数之间的运算符号。在介绍操作数之前，先来看看 Verilog 中的各种操作符。</p>
+<h1 id="10-操作数、操作符和表达式"><a href="#10-操作数、操作符和表达式" class="headerlink" title="10. 操作数、操作符和表达式"></a>10. 操作数、操作符和表达式</h1><h2 id="10-1-操作符"><a href="#10-1-操作符" class="headerlink" title="10.1. 操作符"></a>10.1. 操作符</h2><p>操作符是操作数之间的运算符号。在介绍操作数之前，先来看看 Verilog 中的各种操作符。</p>
 <div class="table-container">
 <table>
 <thead>
@@ -697,7 +697,7 @@
 </table>
 </div>
 <p>其中，一元操作表示仅有一个操作数，二元操作表示有两个操作数。归约操作也是只有一个操作数，它是该操作数中的所有位之间的计算。</p>
-<h3 id="算术操作符"><a href="#算术操作符" class="headerlink" title="算术操作符"></a>算术操作符</h3><div class="table-container">
+<h3 id="10-1-1-算术操作符"><a href="#10-1-1-算术操作符" class="headerlink" title="10.1.1. 算术操作符"></a>10.1.1. 算术操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -740,7 +740,7 @@
 </tbody>
 </table>
 </div>
-<h3 id="按位操作符"><a href="#按位操作符" class="headerlink" title="按位操作符"></a>按位操作符</h3><div class="table-container">
+<h3 id="10-1-2-按位操作符"><a href="#10-1-2-按位操作符" class="headerlink" title="10.1.2. 按位操作符"></a>10.1.2. 按位操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -778,7 +778,7 @@
 </tbody>
 </table>
 </div>
-<h3 id="归约操作符"><a href="#归约操作符" class="headerlink" title="归约操作符"></a>归约操作符</h3><div class="table-container">
+<h3 id="10-1-3-归约操作符"><a href="#10-1-3-归约操作符" class="headerlink" title="10.1.3. 归约操作符"></a>10.1.3. 归约操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -821,7 +821,7 @@
 </tbody>
 </table>
 </div>
-<h3 id="逻辑操作符"><a href="#逻辑操作符" class="headerlink" title="逻辑操作符"></a>逻辑操作符</h3><div class="table-container">
+<h3 id="10-1-4-逻辑操作符"><a href="#10-1-4-逻辑操作符" class="headerlink" title="10.1.4. 逻辑操作符"></a>10.1.4. 逻辑操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -849,7 +849,7 @@
 </tbody>
 </table>
 </div>
-<h3 id="相等操作符"><a href="#相等操作符" class="headerlink" title="相等操作符"></a>相等操作符</h3><div class="table-container">
+<h3 id="10-1-5-相等操作符"><a href="#10-1-5-相等操作符" class="headerlink" title="10.1.5. 相等操作符"></a>10.1.5. 相等操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -875,7 +875,7 @@
 <blockquote>
 <p>相等操作符仅比较逻辑 1 和 0。</p>
 </blockquote>
-<h3 id="全等操作符"><a href="#全等操作符" class="headerlink" title="全等操作符"></a>全等操作符</h3><div class="table-container">
+<h3 id="10-1-6-全等操作符"><a href="#10-1-6-全等操作符" class="headerlink" title="10.1.6. 全等操作符"></a>10.1.6. 全等操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -898,7 +898,7 @@
 </tbody>
 </table>
 </div>
-<h3 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h3><div class="table-container">
+<h3 id="10-1-7-关系操作符"><a href="#10-1-7-关系操作符" class="headerlink" title="10.1.7. 关系操作符"></a>10.1.7. 关系操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -931,7 +931,7 @@
 </tbody>
 </table>
 </div>
-<h3 id="逻辑移位操作符"><a href="#逻辑移位操作符" class="headerlink" title="逻辑移位操作符"></a>逻辑移位操作符</h3><div class="table-container">
+<h3 id="10-1-8-逻辑移位操作符"><a href="#10-1-8-逻辑移位操作符" class="headerlink" title="10.1.8. 逻辑移位操作符"></a>10.1.8. 逻辑移位操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -954,7 +954,7 @@
 </tbody>
 </table>
 </div>
-<h3 id="条件操作符"><a href="#条件操作符" class="headerlink" title="条件操作符"></a>条件操作符</h3><div class="table-container">
+<h3 id="10-1-9-条件操作符"><a href="#10-1-9-条件操作符" class="headerlink" title="10.1.9. 条件操作符"></a>10.1.9. 条件操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -972,7 +972,7 @@
 </tbody>
 </table>
 </div>
-<h3 id="连接复制操作符"><a href="#连接复制操作符" class="headerlink" title="连接复制操作符"></a>连接复制操作符</h3><div class="table-container">
+<h3 id="10-1-10-连接复制操作符"><a href="#10-1-10-连接复制操作符" class="headerlink" title="10.1.10. 连接复制操作符"></a>10.1.10. 连接复制操作符</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1059,14 +1059,14 @@
 <blockquote>
 <p>例如：<code>A + B &amp; C + D</code> 就表示 <code>(A + B) &amp; (C + D)</code>，而不是 <code>A + (B &amp; C) + D</code>。</p>
 </blockquote>
-<h2 id="二进制数值"><a href="#二进制数值" class="headerlink" title="二进制数值"></a>二进制数值</h2><p>在讨论操作数之前，先来看看二进制数中如何表示有符号数和无符号数。</p>
+<h2 id="10-2-二进制数值"><a href="#10-2-二进制数值" class="headerlink" title="10.2. 二进制数值"></a>10.2. 二进制数值</h2><p>在讨论操作数之前，先来看看二进制数中如何表示有符号数和无符号数。</p>
 <p>例如，在一个 6 位二进制整形变量中，</p>
 <ul>
 <li>无符号数能表示的范围是：<code>0~63</code>；</li>
 <li>有符号数采用二进制补码（Two’s complement）方式，能表示的范围是：<code>-32～31</code>。其中二进制的最高位表示符号，最高位为 1 表示该数是负数，为 0 表示该数是正数。</li>
 </ul>
 <p>这里对具体的编码方式不过多介绍，但学过数字电路的同学必须掌握二进制中无符号数和有符号数的表示方法，以及计算的机制。</p>
-<h2 id="操作数"><a href="#操作数" class="headerlink" title="操作数"></a>操作数</h2><p>在 Verilog 语言中，操作数可以是如下几种：</p>
+<h2 id="10-3-操作数"><a href="#10-3-操作数" class="headerlink" title="10.3. 操作数"></a>10.3. 操作数</h2><p>在 Verilog 语言中，操作数可以是如下几种：</p>
 <ul>
 <li>常数；</li>
 <li>参数；</li>
@@ -1095,7 +1095,7 @@
 <p>做如下运算：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Opreg = -<span class="number">4</span>d&#x27;<span class="number">12</span>/<span class="number">4</span>;           <span class="comment">// Opreg 被赋值 29，(-4d&#x27;12/4)的最低5位</span></span><br><span class="line">Opint = -<span class="number">4</span>d&#x27;<span class="number">12</span>/<span class="number">4</span>;           <span class="comment">// Opint 被赋值为 1073741821，共 32 位</span></span><br><span class="line">Opreg = -<span class="number">12</span>/<span class="number">4</span>;              <span class="comment">// Opreg 被赋值29，(-12/4)的最低5位</span></span><br><span class="line">Opint = -<span class="number">12</span>/<span class="number">4</span>;              <span class="comment">// Opint 被赋值为 -3，采用 32 位的二进制补码表示方式</span></span><br></pre></td></tr></table></figure>
 <p>通过以上的计算结果可以看出，无符号数和有符号数的算术运算非常不同，用户在设计常量和变量并用它们计算的时候，一定要搞清楚它们中哪些表示有符号数，哪些表示无符号数，这很重要。</p>
-<h1 id="系统任务和系统函数"><a href="#系统任务和系统函数" class="headerlink" title="系统任务和系统函数"></a>系统任务和系统函数</h1><p>在 Verilog 语中，预先定义了一些任务和函数，用于完成一些特殊的功能，它们被称为系统任务和系统函数。Verilog 能提供的系统任务和系统函数类型如下：</p>
+<h1 id="11-系统任务和系统函数"><a href="#11-系统任务和系统函数" class="headerlink" title="11. 系统任务和系统函数"></a>11. 系统任务和系统函数</h1><p>在 Verilog 语中，预先定义了一些任务和函数，用于完成一些特殊的功能，它们被称为系统任务和系统函数。Verilog 能提供的系统任务和系统函数类型如下：</p>
 <ul>
 <li>显示任务（display task）；</li>
 <li>文件输人/输出任务（file I/O task）；</li>
@@ -1108,14 +1108,14 @@
 <li>概率分布数（probabilistic distribution function)。</li>
 </ul>
 <p>由于 Verilog 的系统任务和函数种类很多，在这里，只重点介绍一些常用的内容，希望通过介绍可以能让大家迅速掌握，灵活使用。相信通过以下的介绍，大家可以举一反三，通过参考 Verilog 的语法文献，迅速查找到需要的系统任务和函数，完成需要的功能。</p>
-<h2 id="显示任务"><a href="#显示任务" class="headerlink" title="显示任务"></a>显示任务</h2><p><code>$display</code> 是显示任务，通常用来显示变量值、字符串，以及仿真时间等信息。</p>
+<h2 id="11-1-显示任务"><a href="#11-1-显示任务" class="headerlink" title="11.1. 显示任务"></a>11.1. 显示任务</h2><p><code>$display</code> 是显示任务，通常用来显示变量值、字符串，以及仿真时间等信息。</p>
 <p>在 <a href="#JoshVerilog代码">JoshVerilog 模块</a>中使用了这样的系统任务。</p>
 <figure class="highlight verilog"><figcaption><span>Josh.v</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">$display</span> (<span class="string">&quot;At time %t-&quot;</span>, <span class="built_in">$time</span>, <span class="string">&quot;eq0 = 1&quot;</span>);     <span class="comment">// 显示时间</span></span><br></pre></td></tr></table></figure>
 <p>其中，双引号中的是字符串，<code>％t</code> 是时间格式。<code>$time</code> 是产生模拟时间的系统函数，它的返回值显示在字符串中的 <code>％t</code> 位置。</p>
 <p>再如：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">$display</span>(<span class="string">&quot;The value of ABC is %d&quot;</span>, ABC);        <span class="comment">// 显示当前 ABC 变量的值</span></span><br></pre></td></tr></table></figure>
 <p>其中，<code>%d</code> 表示十进制数。<code>ABC</code> 的值显示在字符串中的 <code>%d</code> 位置。</p>
-<h2 id="文件输入出任务"><a href="#文件输入出任务" class="headerlink" title="文件输入出任务"></a>文件输入出任务</h2><p>系统函数 <code>$fopen</code> 用于打开一个文件，并返回一个整数的文件指针。然后，<code>$fdisplay</code> 就可以使用这个文件指针向文件中写人信息。写完后，则可以使用 <code>$fclose</code> 这个系统关闭这个文件。例如：</p>
+<h2 id="11-2-文件输入出任务"><a href="#11-2-文件输入出任务" class="headerlink" title="11.2. 文件输入出任务"></a>11.2. 文件输入出任务</h2><p>系统函数 <code>$fopen</code> 用于打开一个文件，并返回一个整数的文件指针。然后，<code>$fdisplay</code> 就可以使用这个文件指针向文件中写人信息。写完后，则可以使用 <code>$fclose</code> 这个系统关闭这个文件。例如：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">integer</span> Write_Out_File;                     <span class="comment">// 定义一个文件指针</span></span><br><span class="line">Write_Out_File = <span class="built_in">$fopen</span>(<span class="string">&quot;Write_Out_File.txt&quot;</span>);</span><br><span class="line"><span class="built_in">$fdisplay</span>(Write_Out_File, <span class="string">&quot;@ %h\n%h&quot;</span>, Mpi_addr, Data_in);</span><br><span class="line"><span class="built_in">$fclose</span>(Write_Out_File);</span><br></pre></td></tr></table></figure>
 <p>以上的语法，将 <code>Mpi_addr</code> 和 <code>Data_in</code> 分别显示在 <code>@ %h\n%h</code> 中两个 <code>%h</code> 的位置，写入 <code>Write_Out_File</code> 指针所指的文件 <code>Write_Out_File.txt</code> 中。</p>
 <p>用户可以通过 <code>$readmemb</code> 或者 <code>$readmemh</code> 来从文件中读人数据，但是这个文件中的数据格式是一定的。例如：</p>
@@ -1124,7 +1124,7 @@
 <p><code>Read_In_File</code> 数据文件的格式，可以参考如下写法：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="number">2</span>f</span><br><span class="line"><span class="number">24</span></span><br><span class="line">@<span class="number">2</span>e</span><br><span class="line"><span class="number">81</span></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
 <p>其中，<code>@2f</code> 表示地址，是十六进制；<code>24</code> 表示该地址的数据，以此类推。</p>
-<h2 id="其他系统任务和数"><a href="#其他系统任务和数" class="headerlink" title="其他系统任务和数"></a>其他系统任务和数</h2><ol>
+<h2 id="11-3-其他系统任务和数"><a href="#11-3-其他系统任务和数" class="headerlink" title="11.3. 其他系统任务和数"></a>11.3. 其他系统任务和数</h2><ol>
 <li><p>仿真控制任务</p>
 <p> Verilog 中有一些仿真控制任务，例如：<br> <code>$finish</code> 表示使仿真器退出。<br> <code>$stop</code> 使仿真挂起。</p>
 </li>
@@ -1260,7 +1260,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%EF%BC%88Top-Down-%E5%92%8C-Bottom-Up%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">两种设计方法（Top-Down 和 Bottom-Up）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E-Verilog-%E5%AE%9E%E4%BE%8B%E5%87%BA%E5%8F%91"><span class="nav-number">2.</span> <span class="nav-text">从 Verilog 实例出发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog-%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.1.</span> <span class="nav-text">Verilog 实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%A7%8D%E6%8F%8F%E8%BF%B0%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">3 种描述方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Verilog-%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%8D%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">Verilog 的基本词法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%92%8C%E7%AB%AF%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">模块和端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E6%8C%87%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">编译指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#timescale"><span class="nav-number">5.1.</span> <span class="nav-text">&#96;timescale</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#define-%E5%92%8C-undef"><span class="nav-number">5.2.</span> <span class="nav-text">&#96;define 和 &#96;undef</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ifdef%E3%80%81-else-%E5%92%8C-endif"><span class="nav-number">5.3.</span> <span class="nav-text">&#96;ifdef、&#96;else 和&#96;endif</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include"><span class="nav-number">5.4.</span> <span class="nav-text">&#96;include</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resetall"><span class="nav-number">5.5.</span> <span class="nav-text">&#96;resetall</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%80%BC%E4%B8%8E%E5%B8%B8%E9%87%8F"><span class="nav-number">6.</span> <span class="nav-text">逻辑值与常量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%80%BC"><span class="nav-number">6.1.</span> <span class="nav-text">逻辑值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F"><span class="nav-number">6.2.</span> <span class="nav-text">常量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B%E5%B8%B8%E9%87%8F"><span class="nav-number">6.2.1.</span> <span class="nav-text">整型常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%95%B0%E5%9E%8B%E5%B8%B8%E9%87%8F"><span class="nav-number">6.2.2.</span> <span class="nav-text">实数型常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9E%8B%E5%B8%B8%E9%87%8F"><span class="nav-number">6.2.3.</span> <span class="nav-text">字符串型常量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">变量类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%BD%91%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.1.</span> <span class="nav-text">线网类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.2.</span> <span class="nav-text">寄存器类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reg-%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.2.1.</span> <span class="nav-text">reg 类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#integer-%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.2.2.</span> <span class="nav-text">integer 类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%AF%84%E5%AD%98%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.2.3.</span> <span class="nav-text">其他寄存器类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%A9%E7%90%86%E5%90%AB%E4%B9%89"><span class="nav-number">7.3.</span> <span class="nav-text">7.3 变量的物理含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E5%92%8C%E8%B5%8B%E5%80%BC"><span class="nav-number">7.4.</span> <span class="nav-text">驱动和赋值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Verilog-%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E4%B8%8E%E9%A1%BA%E5%BA%8F"><span class="nav-number">9.</span> <span class="nav-text">Verilog 中的并发与顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E3%80%81%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">10.</span> <span class="nav-text">操作数、操作符和表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.</span> <span class="nav-text">操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.1.</span> <span class="nav-text">算术操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%89%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.2.</span> <span class="nav-text">按位操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%92%E7%BA%A6%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.3.</span> <span class="nav-text">归约操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.4.</span> <span class="nav-text">逻辑操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E7%AD%89%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.5.</span> <span class="nav-text">相等操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E7%AD%89%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.6.</span> <span class="nav-text">全等操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.7.</span> <span class="nav-text">关系操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E7%A7%BB%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.8.</span> <span class="nav-text">逻辑移位操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.9.</span> <span class="nav-text">条件操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E5%A4%8D%E5%88%B6%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">10.1.10.</span> <span class="nav-text">连接复制操作符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0%E5%80%BC"><span class="nav-number">10.2.</span> <span class="nav-text">二进制数值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-number">10.3.</span> <span class="nav-text">操作数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0"><span class="nav-number">11.</span> <span class="nav-text">系统任务和系统函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E4%BB%BB%E5%8A%A1"><span class="nav-number">11.1.</span> <span class="nav-text">显示任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%BE%93%E5%85%A5%E5%87%BA%E4%BB%BB%E5%8A%A1"><span class="nav-number">11.2.</span> <span class="nav-text">文件输入出任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E6%95%B0"><span class="nav-number">11.3.</span> <span class="nav-text">其他系统任务和数</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%B8%A4%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%EF%BC%88Top-Down-%E5%92%8C-Bottom-Up%EF%BC%89"><span class="nav-text">1. 两种设计方法（Top-Down 和 Bottom-Up）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BB%8E-Verilog-%E5%AE%9E%E4%BE%8B%E5%87%BA%E5%8F%91"><span class="nav-text">2. 从 Verilog 实例出发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Verilog-%E5%AE%9E%E4%BE%8B"><span class="nav-text">2.1. Verilog 实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-3-%E7%A7%8D%E6%8F%8F%E8%BF%B0%E6%96%B9%E6%B3%95"><span class="nav-text">2.2. 3 种描述方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Verilog-%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%8D%E6%B3%95"><span class="nav-text">3. Verilog 的基本词法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%A8%A1%E5%9D%97%E5%92%8C%E7%AB%AF%E5%8F%A3"><span class="nav-text">4. 模块和端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E7%BC%96%E8%AF%91%E6%8C%87%E4%BB%A4"><span class="nav-text">5. 编译指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-timescale"><span class="nav-text">5.1. &#96;timescale</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-define-%E5%92%8C-undef"><span class="nav-text">5.2. &#96;define 和 &#96;undef</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-ifdef%E3%80%81-else-%E5%92%8C-endif"><span class="nav-text">5.3. &#96;ifdef、&#96;else 和&#96;endif</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-include"><span class="nav-text">5.4. &#96;include</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-resetall"><span class="nav-text">5.5. &#96;resetall</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E9%80%BB%E8%BE%91%E5%80%BC%E4%B8%8E%E5%B8%B8%E9%87%8F"><span class="nav-text">6. 逻辑值与常量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-%E9%80%BB%E8%BE%91%E5%80%BC"><span class="nav-text">6.1. 逻辑值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-%E5%B8%B8%E9%87%8F"><span class="nav-text">6.2. 常量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-1-%E6%95%B4%E5%9E%8B%E5%B8%B8%E9%87%8F"><span class="nav-text">6.2.1. 整型常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-2-%E5%AE%9E%E6%95%B0%E5%9E%8B%E5%B8%B8%E9%87%8F"><span class="nav-text">6.2.2. 实数型常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9E%8B%E5%B8%B8%E9%87%8F"><span class="nav-text">6.2.3. 字符串型常量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-text">7. 变量类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-%E7%BA%BF%E7%BD%91%E7%B1%BB%E5%9E%8B"><span class="nav-text">7.1. 线网类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-%E5%AF%84%E5%AD%98%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="nav-text">7.2. 寄存器类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-1-reg-%E7%B1%BB%E5%9E%8B"><span class="nav-text">7.2.1 reg 类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-2-integer-%E7%B1%BB%E5%9E%8B"><span class="nav-text">7.2.2. integer 类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-3-%E5%85%B6%E4%BB%96%E5%AF%84%E5%AD%98%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="nav-text">7.2.3. 其他寄存器类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-%E5%8F%98%E9%87%8F%E7%9A%84%E7%89%A9%E7%90%86%E5%90%AB%E4%B9%89"><span class="nav-text">7.3. 变量的物理含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-%E9%A9%B1%E5%8A%A8%E5%92%8C%E8%B5%8B%E5%80%BC"><span class="nav-text">7.4. 驱动和赋值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-%E5%8F%82%E6%95%B0"><span class="nav-text">8. 参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-Verilog-%E4%B8%AD%E7%9A%84%E5%B9%B6%E5%8F%91%E4%B8%8E%E9%A1%BA%E5%BA%8F"><span class="nav-text">9. Verilog 中的并发与顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-%E6%93%8D%E4%BD%9C%E6%95%B0%E3%80%81%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">10. 操作数、操作符和表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-1-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1. 操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-1-%E7%AE%97%E6%9C%AF%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.1. 算术操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-2-%E6%8C%89%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.2. 按位操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-3-%E5%BD%92%E7%BA%A6%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.3. 归约操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-4-%E9%80%BB%E8%BE%91%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.4. 逻辑操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-5-%E7%9B%B8%E7%AD%89%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.5. 相等操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-6-%E5%85%A8%E7%AD%89%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.6. 全等操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-7-%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.7. 关系操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-8-%E9%80%BB%E8%BE%91%E7%A7%BB%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.8. 逻辑移位操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-9-%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.9. 条件操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-10-%E8%BF%9E%E6%8E%A5%E5%A4%8D%E5%88%B6%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-text">10.1.10. 连接复制操作符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-2-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0%E5%80%BC"><span class="nav-text">10.2. 二进制数值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-3-%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="nav-text">10.3. 操作数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0"><span class="nav-text">11. 系统任务和系统函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-1-%E6%98%BE%E7%A4%BA%E4%BB%BB%E5%8A%A1"><span class="nav-text">11.1. 显示任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-2-%E6%96%87%E4%BB%B6%E8%BE%93%E5%85%A5%E5%87%BA%E4%BB%BB%E5%8A%A1"><span class="nav-text">11.2. 文件输入出任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-3-%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%92%8C%E6%95%B0"><span class="nav-text">11.3. 其他系统任务和数</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1283,7 +1283,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1354,13 +1354,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">56k</span>
+    <span title="站点总字数">57k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">51 分钟</span>
+    <span title="站点阅读时长">52 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -1420,6 +1420,7 @@
 <script src="/js/bookmark.js"></script>
 
 
+  <script defer src="/lib/three/three.min.js"></script>
 
 
   
@@ -1470,6 +1471,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
