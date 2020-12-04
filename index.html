@@ -141,17 +141,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">27</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">14</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">10</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">11</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -207,6 +207,120 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://josh-gao.top/posts/53b8b42e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/favicon-j.svg">
+      <meta itemprop="name" content="Josh Gao">
+      <meta itemprop="description" content="我，搞通信的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Josh's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/53b8b42e.html" class="post-title-link" itemprop="url">Josh 的学习笔记之 Verilog（Part 5 —— RTL 设计与编码指导）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-05 00:46:00 / 修改时间：01:48:32" itemprop="dateCreated datePublished" datetime="2020-12-05T00:46:00+08:00">2020-12-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Verilog/" itemprop="url" rel="index"><span itemprop="name">Verilog</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Josh-%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Josh 的学习笔记</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Josh-%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Verilog/" itemprop="url" rel="index"><span itemprop="name">Verilog</span></a>
+                </span>
+            </span>
+
+          
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>34k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>31 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在<a href="https://josh-gao.top/posts/ecb88422.html">《Part 4 —— RTL 概念与常用 RTL 建模》</a>中，通过具体的 RTL 建模建立了一些对 RTL 级描述的一些感性认识，本文将较深入地探讨一些 RTL 设计的基本规律。RTL 设计规律与方法是一个非常大的论题，在此不可能面面俱到，希望通过本文的介绍，引起大家的注意。如果大家能在日后的工作实践中，不断积累，有意识地积累基本设计原则、设计思想，将取得事半功倍的效果！</p>
+<h1 id="1-一般性指导原则"><a href="#1-一般性指导原则" class="headerlink" title="1. 一般性指导原则"></a>1. 一般性指导原则</h1><p>RTL 级设计的评判标准有很多，如时序性能、所占面积、可测试性、可重要性、功耗、时钟域的分配、复位信号设计、是否与所用 EDA 工具匹配等。如果设计目标是在 FPGA 或 CPLD 等可编程逻辑器件上实现，则还需考虑是否能发挥这些 PLD 的结构特点等。根据以上所述这些目标的组合和优先级可以派生出很多不同的设计原则。这里仅仅讨论一般意义的指导原则。</p>
+<p>这里抛砖引玉地提出 4 个基本设计原则，这些指导原则范畴非常广，不仅仅是要学习它们，更重要的是理解，并在今后的工作实践中充实、完善。</p>
+<ol>
+<li><p><strong>面积和速度的平衡与互换原则</strong></p>
+<p> 面积和速度的平衡与互换原则提出了 RTL 设计的两个基本目标，并探讨了这两个目标对立统一的矛盾关系。</p>
+</li>
+<li><p><strong>硬件原则</strong></p>
+<p> 硬件原则重点在于提醒读者转化软件设计的思路，理解 HDL 语言设计的本质。</p>
+</li>
+<li><p><strong>系统原则</strong></p>
+<p> 系统原则希望读者能够通过全局、整体上把握设计，从而提高设计质址，优化设计效果。</p>
+</li>
+<li><p><strong>同步设计原则</strong></p>
+<p> 同步设计原则是设计时序稳定的基本要求，也是高速 RTL 设计的通用法则。</p>
+</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/53b8b42e.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://josh-gao.top/posts/ecb88422.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -230,10 +344,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-12-02 01:05:32 / 修改时间：01:54:15" itemprop="dateCreated datePublished" datetime="2020-12-02T01:05:32+08:00">2020-12-02</time>
+              <time title="创建时间：2020-12-02 01:05:32" itemprop="dateCreated datePublished" datetime="2020-12-02T01:05:32+08:00">2020-12-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-05 01:17:33" itemprop="dateModified" datetime="2020-12-05T01:17:33+08:00">2020-12-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -244,7 +364,11 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Verilog/Josh-%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Verilog/" itemprop="url" rel="index"><span itemprop="name">Josh 的学习笔记 - Verilog</span></a>
+                  <a href="/categories/Josh-%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Josh 的学习笔记</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Josh-%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Verilog/" itemprop="url" rel="index"><span itemprop="name">Verilog</span></a>
                 </span>
             </span>
 
@@ -276,7 +400,7 @@
       
           <p>Verilog HDL 的基本功能之一是描述可综合的硬件电路。如何合理使用 Verilog HDL 描述高性能的可综合电路是 Verilog 系列学习笔记的目的，也是后续要讨论的主要问题。</p>
 <p>本文介绍了 RTL 和综合的基本概念，通过常用 RTL 电路模型来对可综合的 RTL 级描述方式建立整体性的认识。力图通过范例，逐步引导初学者建立可综合 RTL 子集的概念。</p>
-<h1 id="1-RTL-和综合"><a href="#1-RTL-和综合" class="headerlink" title="1. RTL 和综合"></a>1. RTL 和综合</h1><p>从<a href="https://josh-gao.top/posts/fd117896.html#5-%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1">《Part 3——描述方式和设计层次》的第 5 小节</a>可知，HDL 语言是分层次的。</p>
+<h1 id="1-RTL-和综合"><a href="#1-RTL-和综合" class="headerlink" title="1. RTL 和综合"></a>1. RTL 和综合</h1><p>从<a href="https://josh-gao.top/posts/fd117896.html#5-%E8%AE%BE%E8%AE%A1%E5%B1%82%E6%AC%A1">《Part 3 —— 描述方式和设计层次》的第 5 小节</a>可知，HDL 语言是分层次的。</p>
 <div class="note default">
             <p>最常用的层次概念有系统级（System Level）或功能模块级（Functional Model Level）、行为级（BehavioraI Level）、寄存器传输级（RTL，Register Transfer Level）和门级（Gate Level）等。</p>
           </div>
@@ -337,7 +461,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-01 14:46:29" itemprop="dateModified" datetime="2020-12-01T14:46:29+08:00">2020-12-01</time>
+                <time title="修改时间：2020-12-05 00:38:48" itemprop="dateModified" datetime="2020-12-05T00:38:48+08:00">2020-12-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -388,7 +512,7 @@
 
       
           <p>Verilog 语言可以用多种方式来描述硬件，同时，使用这些描述方式又可以在多个抽象层次上设计硬件。这是 Verilog 语言的重要特征。本文主要侧重于阐述 Verilog 语言的描述方法和设计层次。</p>
-<h1 id="1-描述方式"><a href="#1-描述方式" class="headerlink" title="1. 描述方式"></a>1. 描述方式</h1><p>在<a href="https://josh-gao.top/posts/fd2ca242.html#3-%E7%A7%8D%E6%8F%8F%E8%BF%B0%E6%96%B9%E6%B3%95">《Part 2——Verilog 语言基础》</a>中己经介绍过，Verilog 语言有 3 种最基本的描述方式．</p>
+<h1 id="1-描述方式"><a href="#1-描述方式" class="headerlink" title="1. 描述方式"></a>1. 描述方式</h1><p>在<a href="https://josh-gao.top/posts/fd2ca242.html#3-%E7%A7%8D%E6%8F%8F%E8%BF%B0%E6%96%B9%E6%B3%95">《Part 2 —— Verilog 语言基础》</a>中己经介绍过，Verilog 语言有 3 种最基本的描述方式．</p>
 <ul>
 <li>数据流描述，采用 <code>assign</code> 连续赋值语句；</li>
 <li>行为描述，使用 <code>always</code> 语句或 <code>initial</code> 语句块中的过程赋值语句；</li>
@@ -452,7 +576,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-01 01:11:59" itemprop="dateModified" datetime="2020-12-01T01:11:59+08:00">2020-12-01</time>
+                <time title="修改时间：2020-12-05 00:37:04" itemprop="dateModified" datetime="2020-12-05T00:37:04+08:00">2020-12-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1336,20 +1460,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1376,7 +1500,7 @@
   <div class="widget-wrap">
     <div id="myCanvasContainer" class="widget tagcloud">
       <canvas width="250" height="250" id="resCanvas" style="width:100%">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDL/" rel="tag">HDL</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MATLAB/" rel="tag">MATLAB</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Next/" rel="tag">Next</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTL/" rel="tag">RTL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Verilog/" rel="tag">Verilog</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Verilog-%E8%AF%AD%E6%B3%95/" rel="tag">Verilog 语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E6%80%81/" rel="tag">三态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E9%87%87%E6%A0%B7/" rel="tag">上采样</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5%E5%A4%8D%E4%BD%8D/" rel="tag">同步复位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E8%BE%93%E7%BA%A7/" rel="tag">寄存器传输级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5%E5%A4%8D%E4%BD%8D/" rel="tag">异步复位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E5%9E%8B%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="tag">成型滤波器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F/" rel="tag">描述方式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" rel="tag">条件语句</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="tag">滤波器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80/" rel="tag">硬件描述语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91/" rel="tag">组合逻辑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%BA%95%E5%90%91%E4%B8%8A/" rel="tag">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B/" rel="tag">自顶向下</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%8C%E4%B8%BA%E7%BA%A7/" rel="tag">行为级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B0%81%E6%80%A5%E5%B1%82%E6%AC%A1/" rel="tag">谁急层次</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BB%E5%A1%9E%E8%B5%8B%E5%80%BC/" rel="tag">阻塞赋值</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E9%98%BB%E5%A1%9E%E8%B5%8B%E5%80%BC/" rel="tag">非阻塞赋值</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E6%96%AF%E7%99%BD%E5%99%AA%E5%A3%B0/" rel="tag">高斯白噪声</a><span class="tag-list-count">1</span></li></ul>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HDL/" rel="tag">HDL</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MATLAB/" rel="tag">MATLAB</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Next/" rel="tag">Next</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTL/" rel="tag">RTL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Verilog/" rel="tag">Verilog</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Verilog-%E8%AF%AD%E6%B3%95/" rel="tag">Verilog 语法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%89%E6%80%81/" rel="tag">三态</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8A%E9%87%87%E6%A0%B7/" rel="tag">上采样</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5/" rel="tag">同步</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8C%E6%AD%A5%E5%A4%8D%E4%BD%8D/" rel="tag">同步复位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E6%97%B6%E9%92%9F/" rel="tag">多时钟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%84%E5%AD%98%E5%99%A8%E4%BC%A0%E8%BE%93%E7%BA%A7/" rel="tag">寄存器传输级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%82%E6%AD%A5%E5%A4%8D%E4%BD%8D/" rel="tag">异步复位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%88%90%E5%9E%8B%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="tag">成型滤波器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8F%8F%E8%BF%B0%E6%96%B9%E5%BC%8F/" rel="tag">描述方式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" rel="tag">条件语句</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%A4%E6%B3%A2%E5%99%A8/" rel="tag">滤波器</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A1%AC%E4%BB%B6%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80/" rel="tag">硬件描述语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91/" rel="tag">组合逻辑</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag">翻译</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%BA%95%E5%90%91%E4%B8%8A/" rel="tag">自底向上</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B/" rel="tag">自顶向下</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%8C%E4%B8%BA%E7%BA%A7/" rel="tag">行为级</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B0%81%E6%80%A5%E5%B1%82%E6%AC%A1/" rel="tag">谁急层次</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%9F%E5%BA%A6/" rel="tag">速度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%BB%E5%A1%9E%E8%B5%8B%E5%80%BC/" rel="tag">阻塞赋值</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%9E%E9%98%BB%E5%A1%9E%E8%B5%8B%E5%80%BC/" rel="tag">非阻塞赋值</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E7%A7%AF/" rel="tag">面积</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%AB%98%E6%96%AF%E7%99%BD%E5%99%AA%E5%A3%B0/" rel="tag">高斯白噪声</a><span class="tag-list-count">1</span></li></ul>
       </canvas>
     </div>
   </div>
@@ -1414,13 +1538,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">86k</span>
+    <span title="站点总字数">121k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:18</span>
+    <span title="站点阅读时长">1:50</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
