@@ -228,6 +228,34 @@
   </url>
   
   <url>
+    <loc>http://josh-gao.top/tags/Cher-Lloyd/</loc>
+    <lastmod>2020-12-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://josh-gao.top/tags/Music/</loc>
+    <lastmod>2020-12-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://josh-gao.top/tags/2020/</loc>
+    <lastmod>2020-12-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://josh-gao.top/tags/Pop/</loc>
+    <lastmod>2020-12-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://josh-gao.top/tags/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B/</loc>
     <lastmod>2020-12-15</lastmod>
     <changefreq>daily</changefreq>
@@ -339,34 +367,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>http://josh-gao.top/tags/Cher-Lloyd/</loc>
-    <lastmod>2020-12-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://josh-gao.top/tags/Music/</loc>
-    <lastmod>2020-12-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://josh-gao.top/tags/2020/</loc>
-    <lastmod>2020-12-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://josh-gao.top/tags/Pop/</loc>
-    <lastmod>2020-12-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   
   <url>
@@ -399,6 +399,13 @@
   
   <url>
     <loc>http://josh-gao.top/categories/%E7%BF%BB%E8%AF%91/%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3/</loc>
+    <lastmod>2020-12-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://josh-gao.top/categories/Music-Cher-Lloyd/</loc>
     <lastmod>2020-12-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -462,13 +469,6 @@
   
   <url>
     <loc>http://josh-gao.top/categories/Verilog/Verilog-%E8%AE%BE%E8%AE%A1/</loc>
-    <lastmod>2020-12-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://josh-gao.top/categories/Music-Cher-Lloyd/</loc>
     <lastmod>2020-12-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
