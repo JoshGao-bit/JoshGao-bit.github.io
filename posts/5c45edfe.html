@@ -25,12 +25,12 @@
     var CONFIG = {"hostname":"josh-gao.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":260,"display":"post","padding":12,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"slideRightBigIn","post_header":"perspectiveLeftIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideLeftIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="rcosdesign：升余弦 FIR 脉冲成型滤波器设计 语法b &#x3D; rcosdesign(beta,span,sps)b &#x3D; rcosdesign(beta,span,sps,shape)">
+  <meta name="description" content="rcosdesign：升余弦 FIR 脉冲成型滤波器设计 语法 b &#x3D; rcosdesign(beta,span,sps) b &#x3D; rcosdesign(beta,span,sps,shape)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MATLAB 函数 —— rcosdesign">
 <meta property="og:url" content="http://josh-gao.top/posts/5c45edfe.html">
 <meta property="og:site_name" content="Josh&#39;s Blog">
-<meta property="og:description" content="rcosdesign：升余弦 FIR 脉冲成型滤波器设计 语法b &#x3D; rcosdesign(beta,span,sps)b &#x3D; rcosdesign(beta,span,sps,shape)">
+<meta property="og:description" content="rcosdesign：升余弦 FIR 脉冲成型滤波器设计 语法 b &#x3D; rcosdesign(beta,span,sps) b &#x3D; rcosdesign(beta,span,sps,shape)">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-010-DesignASquareRootRaisedCosineFilterExample-01.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5">
 <meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-020-ImpulseResponsesOfNormalAndSquareRootRaisedCosineFiltersExample-01.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5">
@@ -302,41 +302,43 @@
 
       
         <p><code>rcosdesign</code>：升余弦 FIR 脉冲成型滤波器设计</p>
-<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p><code>b = rcosdesign(beta,span,sps)</code><br><code>b = rcosdesign(beta,span,sps,shape)</code></p>
+<h1 id="语法">语法</h1>
+<p><code>b = rcosdesign(beta,span,sps)</code> <code>b = rcosdesign(beta,span,sps,shape)</code></p>
 <a id="more"></a>
-<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p><code>b = rcosdesign(beta,span,sps)</code> 返回系数 <code>b</code>，该系数对应于具有由 <code>beta</code> 指定的衰减因子的平方根升余弦 FIR 滤波器。滤波器有 <code>span</code> 个符号，每个符号包含 <code>sps</code> 个样本。 滤波器的阶次，也即 <code>sps * span</code> 必须是偶数。滤波器的能量为 1。<a href="#Examples-01">举例</a></p>
+<h1 id="说明">说明</h1>
+<p><code>b = rcosdesign(beta,span,sps)</code> 返回系数 <code>b</code>，该系数对应于具有由 <code>beta</code> 指定的衰减因子的平方根升余弦 FIR 滤波器。滤波器有 <code>span</code> 个符号，每个符号包含 <code>sps</code> 个样本。 滤波器的阶次，也即 <code>sps * span</code> 必须是偶数。滤波器的能量为 1。<a href="#Examples-01">举例</a></p>
 <p><code>b = rcosdesign(beta,span,sps,shape)</code> 根据 <code>shape</code> 返回不同的滤波器。当 <code>shape</code> 为 <code>sqrt</code> 时，将返回根升余弦滤波器；当 <code>shape</code> 为 <code>normal</code> 时，将返回升余弦 FIR 滤波器。<a href="#Examples-02">举例</a></p>
-<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><h2 id="设计根升余弦滤波器"><a href="#设计根升余弦滤波器" class="headerlink" title="设计根升余弦滤波器"></a>设计根升余弦滤波器<span id="Examples-01"></span></h2><p>将滚降系数设为 <code>0.25</code>，波器的符号数设为 <code>6</code>，每个符号 <code>4</code> 个采样点。验证 <code>sqrt</code> 是 <code>shape</code> 参数的默认值。</p>
+<h1 id="示例">示例</h1>
+<h2 id="设计根升余弦滤波器">设计根升余弦滤波器<span id="Examples-01"></span></h2>
+<p>将滚降系数设为 <code>0.25</code>，波器的符号数设为 <code>6</code>，每个符号 <code>4</code> 个采样点。验证 <code>sqrt</code> 是 <code>shape</code> 参数的默认值。</p>
 <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">h <span class="built_in">=</span> rcosdesign(<span class="number">0.25</span>,<span class="number">6</span>,<span class="number">4</span>);</span><br><span class="line">mx <span class="built_in">=</span> max(abs(h-rcosdesign(<span class="number">0.25</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="string">&#x27;sqrt&#x27;</span>)))</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><font face="Consolas">mx = 0</font><br></p>
 </blockquote>
 <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fvtool(h,<span class="string">&#x27;Analysis&#x27;</span>,<span class="string">&#x27;impulse&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<div align="center">
-  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-010-DesignASquareRootRaisedCosineFilterExample-01.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/>
+<div data-align="center">
+<p><img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-010-DesignASquareRootRaisedCosineFilterExample-01.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/></p>
 </div>
-
-<h2 id="升余弦和根升余弦滤波器的脉冲响应"><a href="#升余弦和根升余弦滤波器的脉冲响应" class="headerlink" title="升余弦和根升余弦滤波器的脉冲响应"></a>升余弦和根升余弦滤波器的脉冲响应<span id="Examples-02"></span></h2><p>将升余弦滤波器与根升余弦滤波器进行比较。一个理想的（无限长）升余弦脉冲成型滤波器等效于两个级联的理想的根升余弦滤波器。因此，FIR 升余弦滤波器的脉冲响应应类似于与其自身卷积的根升余弦滤波器的脉冲响应。</p>
+<h2 id="升余弦和根升余弦滤波器的脉冲响应">升余弦和根升余弦滤波器的脉冲响应<span id="Examples-02"></span></h2>
+<p>将升余弦滤波器与根升余弦滤波器进行比较。一个理想的（无限长）升余弦脉冲成型滤波器等效于两个级联的理想的根升余弦滤波器。因此，FIR 升余弦滤波器的脉冲响应应类似于与其自身卷积的根升余弦滤波器的脉冲响应。</p>
 <p>设计一个衰减为 <code>0.25</code> 的升余弦滤波器。指定滤波器有 <code>4</code> 个符号，每个符号 <code>3</code> 个采样点。</p>
 <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rf <span class="built_in">=</span> <span class="number">0.25</span>;</span><br><span class="line">span <span class="built_in">=</span> <span class="number">4</span>;</span><br><span class="line">sps <span class="built_in">=</span> <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">h1 <span class="built_in">=</span> rcosdesign(rf,span,sps,<span class="string">&#x27;normal&#x27;</span>);</span><br><span class="line">fvtool(h1,<span class="string">&#x27;impulse&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<div align="center">
-  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-020-ImpulseResponsesOfNormalAndSquareRootRaisedCosineFiltersExample-01.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/>
+<div data-align="center">
+<p><img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-020-ImpulseResponsesOfNormalAndSquareRootRaisedCosineFiltersExample-01.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/></p>
 </div>
-
 <p><strong>升余弦滤波器在 <code>sps</code> 的整数倍处具有零值点</strong>。因此，它满足无码间串扰（ISI）的 Nyquist 准则。但是，根升余弦滤波器没有这样的特性：</p>
 <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">h2 <span class="built_in">=</span> rcosdesign(rf,span,sps,<span class="string">&#x27;sqrt&#x27;</span>);</span><br><span class="line">fvtool(h2,<span class="string">&#x27;impulse&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<div align="center">
-  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-030-ImpulseResponsesOfNormalAndSquareRootRaisedCosineFiltersExample-02.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/>
+<div data-align="center">
+<p><img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-030-ImpulseResponsesOfNormalAndSquareRootRaisedCosineFiltersExample-02.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/></p>
 </div>
-
 <p>将根升余弦滤波器与自身进行卷积。在最大值处截断脉冲响应，使其长度与 <code>h1</code> 相同。使用最大值将响应归一化。然后，将卷积后的根升余弦滤波器与升余弦滤波器进行比较。</p>
 <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">h3 <span class="built_in">=</span> conv(h2,h2);</span><br><span class="line">p2 <span class="built_in">=</span> ceil(length(h3)/<span class="number">2</span>);</span><br><span class="line">m2 <span class="built_in">=</span> ceil(p2-length(h1)/<span class="number">2</span>);</span><br><span class="line">M2 <span class="built_in">=</span> floor(p2+length(h1)/<span class="number">2</span>);</span><br><span class="line">ct <span class="built_in">=</span> h3(m2:M2);</span><br><span class="line"></span><br><span class="line">stem([h1/max(abs(h1));ct/max(abs(ct))]<span class="string">&#x27;,&#x27;</span>filled<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">xlabel(&#x27;</span>Samples<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">ylabel(&#x27;</span>Normalized amplitude<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">legend(&#x27;</span>h1<span class="string">&#x27;,&#x27;</span>h2 * h2<span class="string">&#x27;)</span></span><br></pre></td></tr></table></figure>
-<div align="center">
-  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-040-ImpulseResponsesOfNormalAndSquareRootRaisedCosineFiltersExample-03.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/>
+<div data-align="center">
+<p><img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-25-matlab-rcosdesign/2020-11-25-matlab-rcosdesign-040-ImpulseResponsesOfNormalAndSquareRootRaisedCosineFiltersExample-03.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/></p>
 </div>
-
 <p>卷积响应的长度是有限的，因此根升余弦滤波器与自身进行卷积得到的结果会与升余弦滤波器不一致。增加 <code>span</code> 可以在响应之间获得更紧密的一致性，并更好地符合 Nyquist 准则。</p>
-<h2 id="将信号通过升余弦滤波器"><a href="#将信号通过升余弦滤波器" class="headerlink" title="将信号通过升余弦滤波器"></a>将信号通过升余弦滤波器<span id="Examples-03"></span></h2><p>本例说明如何将信号通过根升余弦滤波器。</p>
+<h2 id="将信号通过升余弦滤波器">将信号通过升余弦滤波器<span id="Examples-03"></span></h2>
+<p>本例说明如何将信号通过根升余弦滤波器。</p>
 <p>指定滤波器参数。</p>
 <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rolloff <span class="built_in">=</span> <span class="number">0.25</span>;     <span class="comment">% 滚降因子</span></span><br><span class="line">span <span class="built_in">=</span> <span class="number">6</span>;           <span class="comment">% 滤波器宽度（符号数）</span></span><br><span class="line">sps <span class="built_in">=</span> <span class="number">4</span>;            <span class="comment">% 每个符号的样本数</span></span><br></pre></td></tr></table></figure>
 <p>生成根升余弦滤波器的系数。</p>
@@ -350,31 +352,44 @@
 <p>对接收到的信号进行滤波和下采样以进行匹配滤波。</p>
 <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y <span class="built_in">=</span> upfirdn(r, b, <span class="number">1</span>, sps);</span><br></pre></td></tr></table></figure>
 <p>有关如何使用根升余弦滤波器对信号进行插值和抽取的信息，请参见使<a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/comm/ug/interpolate-and-decimate-using-rrc-filter.html">用 RRC 滤波器进行插值和抽取</a>（Communications Toolbox）。</p>
-<h1 id="输入参数"><a href="#输入参数" class="headerlink" title="输入参数"></a>输入参数</h1><h2 id="beta-滚降系数"><a href="#beta-滚降系数" class="headerlink" title="beta - 滚降系数"></a><code>beta</code> - 滚降系数</h2><p>滚降系数，指定为不大于 <code>1</code> 的<strong>实非负标量</strong>。滚降系数决定滤波器的多余带宽。滚降系数为 <code>0</code> 时为矩形滤波器（brick-wall filter），滚降因子为 <code>1</code> 时为纯升余弦滤波器。</p>
+<h1 id="输入参数">输入参数</h1>
+<h2 id="beta---滚降系数"><code>beta</code> - 滚降系数</h2>
+<p>滚降系数，指定为不大于 <code>1</code> 的<strong>实非负标量</strong>。滚降系数决定滤波器的多余带宽。滚降系数为 <code>0</code> 时为矩形滤波器（brick-wall filter），滚降因子为 <code>1</code> 时为纯升余弦滤波器。</p>
 <p><strong>数据类型</strong>：<code>double</code> | <code>single</code></p>
-<h2 id="span-符号数"><a href="#span-符号数" class="headerlink" title="span - 符号数"></a><code>span</code> - 符号数</h2><p>符号数，指定为<strong>正整数标量</strong>。</p>
+<h2 id="span---符号数"><code>span</code> - 符号数</h2>
+<p>符号数，指定为<strong>正整数标量</strong>。</p>
 <p><strong>数据类型</strong>：<code>double</code> | <code>single</code></p>
-<h2 id="sps-每个符号的样本数"><a href="#sps-每个符号的样本数" class="headerlink" title="sps - 每个符号的样本数"></a><code>sps</code> - 每个符号的样本数</h2><p>每个符号的样本数（上采样因子），指定为<strong>正整数标量</strong>。</p>
+<h2 id="sps---每个符号的样本数"><code>sps</code> - 每个符号的样本数</h2>
+<p>每个符号的样本数（上采样因子），指定为<strong>正整数标量</strong>。</p>
 <p><strong>数据类型</strong>：<code>double</code> | <code>single</code></p>
-<h2 id="shape-升余弦滤波器的形状"><a href="#shape-升余弦滤波器的形状" class="headerlink" title="shape - 升余弦滤波器的形状"></a><code>shape</code> - 升余弦滤波器的形状</h2><p>升余弦滤波器的形状，指定为 <code>normal</code> 或 <code>sqrt</code>。</p>
-<h1 id="输出参数"><a href="#输出参数" class="headerlink" title="输出参数"></a>输出参数</h1><h2 id="b-FIR-滤波器系数"><a href="#b-FIR-滤波器系数" class="headerlink" title="b - FIR 滤波器系数"></a><code>b</code> - FIR 滤波器系数</h2><p>升余弦滤波器的系数，以<strong>列向量</strong>的形式返回。</p>
+<h2 id="shape---升余弦滤波器的形状"><code>shape</code> - 升余弦滤波器的形状</h2>
+<p>升余弦滤波器的形状，指定为 <code>normal</code> 或 <code>sqrt</code>。</p>
+<h1 id="输出参数">输出参数</h1>
+<h2 id="b---fir-滤波器系数"><code>b</code> - FIR 滤波器系数</h2>
+<p>升余弦滤波器的系数，以<strong>列向量</strong>的形式返回。</p>
 <p><strong>数据类型</strong>：<code>double</code> | <code>single</code></p>
-<h1 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h1><ul>
+<h1 id="提示">提示</h1>
+<ul>
 <li>如果您拥有 Communications Toolbox™ 软件的许可证，则可以执行具有流传输行为的多速率升余弦滤波。为此，请使用 System object™ 滤波器——<code>comm.RaisedCosineTransmitFilter</code> 和 <code>comm.RaisedCosineReceiveFilter</code>。</li>
 </ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] Tranter, William H., K. Sam Shanmugan, Theodore S. Rappaport, and Kurt L. Kosbar. <em>Principles of Communication Systems Simulation with Wireless Applications.</em> Upper Saddle River, NJ: Prentice Hall, 2004.</p>
-<h1 id="扩展功能"><a href="#扩展功能" class="headerlink" title="扩展功能"></a>扩展功能</h1><h2 id="C-C-代码生成"><a href="#C-C-代码生成" class="headerlink" title="C/C++ 代码生成"></a>C/C++ 代码生成</h2><blockquote>
+<h1 id="参考">参考</h1>
+<p>[1] Tranter, William H., K. Sam Shanmugan, Theodore S. Rappaport, and Kurt L. Kosbar. <em>Principles of Communication Systems Simulation with Wireless Applications.</em> Upper Saddle River, NJ: Prentice Hall, 2004.</p>
+<h1 id="扩展功能">扩展功能</h1>
+<h2 id="cc-代码生成">C/C++ 代码生成</h2>
+<blockquote>
 <p>使用 MATLAB® Coder™ 生成 C 代码和 C++ 代码。</p>
 <blockquote>
 <p>用法说明和限制：</p>
 <p>所有输入必须为常数。 如果表达式或变量的值不变，则也允许使用。</p>
 </blockquote>
 </blockquote>
-<h1 id="另请参阅"><a href="#另请参阅" class="headerlink" title="另请参阅"></a>另请参阅</h1><p><a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/signal/ref/gaussdesign.html"><code>gaussdesign</code></a></p>
-<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p><a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/comm/ug/interpolate-and-decimate-using-rrc-filter.html">用 RRC 滤波器进行插值和抽取</a>（Communications Toolbox）</p>
-<hr>
+<h1 id="另请参阅">另请参阅</h1>
+<p><a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/signal/ref/gaussdesign.html"><code>gaussdesign</code></a></p>
+<h2 id="主题">主题</h2>
+<p><a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/comm/ug/interpolate-and-decimate-using-rrc-filter.html">用 RRC 滤波器进行插值和抽取</a>（Communications Toolbox）</p>
+<hr />
 <p>在 R2013b 中推出</p>
-<hr>
+<hr />
 <p>原文参考：<a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/signal/ref/rcosdesign.html">https://ww2.mathworks.cn/help/signal/ref/rcosdesign.html</a></p>
 
     </div>
@@ -496,7 +511,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A0%B9%E5%8D%87%E4%BD%99%E5%BC%A6%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">设计根升余弦滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%87%E4%BD%99%E5%BC%A6%E5%92%8C%E6%A0%B9%E5%8D%87%E4%BD%99%E5%BC%A6%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E8%84%89%E5%86%B2%E5%93%8D%E5%BA%94"><span class="nav-number">3.2.</span> <span class="nav-text">升余弦和根升余弦滤波器的脉冲响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E4%BF%A1%E5%8F%B7%E9%80%9A%E8%BF%87%E5%8D%87%E4%BD%99%E5%BC%A6%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">3.3.</span> <span class="nav-text">将信号通过升余弦滤波器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">输入参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#beta-%E6%BB%9A%E9%99%8D%E7%B3%BB%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">beta - 滚降系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#span-%E7%AC%A6%E5%8F%B7%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">span - 符号数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sps-%E6%AF%8F%E4%B8%AA%E7%AC%A6%E5%8F%B7%E7%9A%84%E6%A0%B7%E6%9C%AC%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">sps - 每个符号的样本数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shape-%E5%8D%87%E4%BD%99%E5%BC%A6%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E5%BD%A2%E7%8A%B6"><span class="nav-number">4.4.</span> <span class="nav-text">shape - 升余弦滤波器的形状</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">输出参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#b-FIR-%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%B3%BB%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">b - FIR 滤波器系数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA"><span class="nav-number">6.</span> <span class="nav-text">提示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E5%8A%9F%E8%83%BD"><span class="nav-number">8.</span> <span class="nav-text">扩展功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-C-%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="nav-number">8.1.</span> <span class="nav-text">C&#x2F;C++ 代码生成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A6%E8%AF%B7%E5%8F%82%E9%98%85"><span class="nav-number">9.</span> <span class="nav-text">另请参阅</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98"><span class="nav-number">9.1.</span> <span class="nav-text">主题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A0%B9%E5%8D%87%E4%BD%99%E5%BC%A6%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">设计根升余弦滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%87%E4%BD%99%E5%BC%A6%E5%92%8C%E6%A0%B9%E5%8D%87%E4%BD%99%E5%BC%A6%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E8%84%89%E5%86%B2%E5%93%8D%E5%BA%94"><span class="nav-number">3.2.</span> <span class="nav-text">升余弦和根升余弦滤波器的脉冲响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E4%BF%A1%E5%8F%B7%E9%80%9A%E8%BF%87%E5%8D%87%E4%BD%99%E5%BC%A6%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">3.3.</span> <span class="nav-text">将信号通过升余弦滤波器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">输入参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#beta---%E6%BB%9A%E9%99%8D%E7%B3%BB%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">beta - 滚降系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#span---%E7%AC%A6%E5%8F%B7%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">span - 符号数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sps---%E6%AF%8F%E4%B8%AA%E7%AC%A6%E5%8F%B7%E7%9A%84%E6%A0%B7%E6%9C%AC%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">sps - 每个符号的样本数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shape---%E5%8D%87%E4%BD%99%E5%BC%A6%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E5%BD%A2%E7%8A%B6"><span class="nav-number">4.4.</span> <span class="nav-text">shape - 升余弦滤波器的形状</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">输出参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#b---fir-%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%B3%BB%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">b - FIR 滤波器系数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA"><span class="nav-number">6.</span> <span class="nav-text">提示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E5%8A%9F%E8%83%BD"><span class="nav-number">8.</span> <span class="nav-text">扩展功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cc-%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="nav-number">8.1.</span> <span class="nav-text">C&#x2F;C++ 代码生成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A6%E8%AF%B7%E5%8F%82%E9%98%85"><span class="nav-number">9.</span> <span class="nav-text">另请参阅</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98"><span class="nav-number">9.1.</span> <span class="nav-text">主题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -579,8 +594,8 @@
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -590,13 +605,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">126k</span>
+    <span title="站点总字数">129k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:54</span>
+    <span title="站点阅读时长">1:57</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

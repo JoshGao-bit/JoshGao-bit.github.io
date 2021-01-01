@@ -25,12 +25,12 @@
     var CONFIG = {"hostname":"josh-gao.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":260,"display":"post","padding":12,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"slideRightBigIn","post_header":"perspectiveLeftIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideLeftIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="gaussdesign：高斯 FIR 脉冲成型滤波器设计 语法h &#x3D; gaussdesign(bt,span,sps)">
+  <meta name="description" content="gaussdesign：高斯 FIR 脉冲成型滤波器设计 语法 h &#x3D; gaussdesign(bt,span,sps)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MATLAB 函数 —— gaussdesign">
 <meta property="og:url" content="http://josh-gao.top/posts/a2967b00.html">
 <meta property="og:site_name" content="Josh&#39;s Blog">
-<meta property="og:description" content="gaussdesign：高斯 FIR 脉冲成型滤波器设计 语法h &#x3D; gaussdesign(bt,span,sps)">
+<meta property="og:description" content="gaussdesign：高斯 FIR 脉冲成型滤波器设计 语法 h &#x3D; gaussdesign(bt,span,sps)">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-26-matlab-gaussdesign/2020-11-26-matlab-gaussdesign-010-GaussianFilterForAGSMGMSKDigitalCellularCommunicationSysExample-01.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5">
 <meta property="article:published_time" content="2020-11-26T07:56:26.000Z">
@@ -299,29 +299,40 @@
 
       
         <p><code>gaussdesign</code>：高斯 FIR 脉冲成型滤波器设计</p>
-<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p><code>h = gaussdesign(bt,span,sps)</code></p>
+<h1 id="语法">语法</h1>
+<p><code>h = gaussdesign(bt,span,sps)</code></p>
 <a id="more"></a>
-<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p><code>h = gaussdesign(bt,span,sps)</code> 设计一个低通 FIR 高斯脉冲成型滤波器，并返回滤波器系数向量 <code>h</code>。滤波器有 <code>span</code> 个符号，每个符号包含 <code>sps</code> 个样本。滤波器的阶次，也即 <code>sps * span</code> 必须是偶数。<a href="#Examples-01">举例</a></p>
-<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><h2 id="GSM-GMSK-数字蜂窝通信系统的高斯滤波器"><a href="#GSM-GMSK-数字蜂窝通信系统的高斯滤波器" class="headerlink" title="GSM GMSK 数字蜂窝通信系统的高斯滤波器"></a>GSM GMSK 数字蜂窝通信系统的高斯滤波器<span id="Examples-01"></span></h2><p>指定用于传输比特位的调制是高斯最小频移键控（GMSK）脉冲。此脉冲的 3-dB 带宽等于比特率的 <code>0.3</code> 倍，滤波器的符号数为 <code>4</code>，每个符号 <code>8</code> 个采样点。</p>
+<h1 id="说明">说明</h1>
+<p><code>h = gaussdesign(bt,span,sps)</code> 设计一个低通 FIR 高斯脉冲成型滤波器，并返回滤波器系数向量 <code>h</code>。滤波器有 <code>span</code> 个符号，每个符号包含 <code>sps</code> 个样本。滤波器的阶次，也即 <code>sps * span</code> 必须是偶数。<a href="#Examples-01">举例</a></p>
+<h1 id="示例">示例</h1>
+<h2 id="gsm-gmsk-数字蜂窝通信系统的高斯滤波器">GSM GMSK 数字蜂窝通信系统的高斯滤波器<span id="Examples-01"></span></h2>
+<p>指定用于传输比特位的调制是高斯最小频移键控（GMSK）脉冲。此脉冲的 3-dB 带宽等于比特率的 <code>0.3</code> 倍，滤波器的符号数为 <code>4</code>，每个符号 <code>8</code> 个采样点。</p>
 <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bt <span class="built_in">=</span> <span class="number">0.3</span>;</span><br><span class="line">span <span class="built_in">=</span> <span class="number">4</span>;</span><br><span class="line">sps <span class="built_in">=</span> <span class="number">8</span>;</span><br><span class="line">h <span class="built_in">=</span> gaussdesign(bt,span,sps);</span><br><span class="line">fvtool(h,<span class="string">&#x27;impulse&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<div align="center">
-  <img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-26-matlab-gaussdesign/2020-11-26-matlab-gaussdesign-010-GaussianFilterForAGSMGMSKDigitalCellularCommunicationSysExample-01.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/>
+<div data-align="center">
+<p><img data-src="https://josh-blog-1257563604.cos.ap-beijing.myqcloud.com/img/2020-11-26-matlab-gaussdesign/2020-11-26-matlab-gaussdesign-010-GaussianFilterForAGSMGMSKDigitalCellularCommunicationSysExample-01.png?imageMogr2/thumbnail/!100p|watermark/2/text/QEpvc2ggR2Fv/fontsize/15/dissolve/60/gravity/southeast/dx/5/dy/5"/></p>
 </div>
-
-<h1 id="输入参数"><a href="#输入参数" class="headerlink" title="输入参数"></a>输入参数</h1><h2 id="bt-3-dB带宽符号时间积"><a href="#bt-3-dB带宽符号时间积" class="headerlink" title="bt - 3-dB带宽符号时间积"></a><code>bt</code> - 3-dB带宽符号时间积</h2><p>3-dB 单边带带宽（以 Hz 为单位）和符号时间（以秒为单位）的乘积，指定为<strong>正实标量</strong>。较小的 <code>bt</code> 值会产生较大的脉冲宽度。</p>
+<h1 id="输入参数">输入参数</h1>
+<h2 id="bt---3-db带宽符号时间积"><code>bt</code> - 3-dB带宽符号时间积</h2>
+<p>3-dB 单边带带宽（以 Hz 为单位）和符号时间（以秒为单位）的乘积，指定为<strong>正实标量</strong>。较小的 <code>bt</code> 值会产生较大的脉冲宽度。</p>
 <p><strong>数据类型</strong>：<code>double</code> | <code>single</code></p>
-<h2 id="span-符号数"><a href="#span-符号数" class="headerlink" title="span - 符号数"></a><code>span</code> - 符号数</h2><p>符号数，指定为<strong>正整数标量</strong>（默认为 3）。</p>
+<h2 id="span---符号数"><code>span</code> - 符号数</h2>
+<p>符号数，指定为<strong>正整数标量</strong>（默认为 3）。</p>
 <p><strong>数据类型</strong>：<code>double</code> | <code>single</code></p>
-<h2 id="sps-每个符号的样本数"><a href="#sps-每个符号的样本数" class="headerlink" title="sps - 每个符号的样本数"></a><code>sps</code> - 每个符号的样本数</h2><p>每个符号周期的样本数（上采样因子），指定为<strong>正整数标量</strong>（默认为 2）。</p>
+<h2 id="sps---每个符号的样本数"><code>sps</code> - 每个符号的样本数</h2>
+<p>每个符号周期的样本数（上采样因子），指定为<strong>正整数标量</strong>（默认为 2）。</p>
 <p><strong>数据类型</strong>：<code>double</code> | <code>single</code></p>
-<h1 id="输出参数"><a href="#输出参数" class="headerlink" title="输出参数"></a>输出参数</h1><h2 id="h-FIR-滤波器系数"><a href="#h-FIR-滤波器系数" class="headerlink" title="h - FIR 滤波器系数"></a><code>h</code> - FIR 滤波器系数</h2><p>高斯脉冲成型滤波器的 FIR 系数，以<strong>行向量</strong>的形式返回。系数已被归一化，因此标称通带增益始终为 1。</p>
+<h1 id="输出参数">输出参数</h1>
+<h2 id="h---fir-滤波器系数"><code>h</code> - FIR 滤波器系数</h2>
+<p>高斯脉冲成型滤波器的 FIR 系数，以<strong>行向量</strong>的形式返回。系数已被归一化，因此标称通带增益始终为 1。</p>
 <p><strong>数据类型</strong>：<code>double</code> | <code>single</code></p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] Krishnapura, N., S. Pavan, C. Mathiazhagan, and B. Ramamurthi. “A baseband pulse shaping filter for Gaussian minimum shift keying.” <em>Proceedings of the 1998 IEEE International Symposium on Circuits and Systems</em>. Vol. 1, 1998, pp. 249–252.</p>
+<h1 id="参考">参考</h1>
+<p>[1] Krishnapura, N., S. Pavan, C. Mathiazhagan, and B. Ramamurthi. “A baseband pulse shaping filter for Gaussian minimum shift keying.” <em>Proceedings of the 1998 IEEE International Symposium on Circuits and Systems</em>. Vol. 1, 1998, pp. 249–252.</p>
 <p>[2] Rappaport, Theodore S. <em>Wireless Communications: Principles and Practice.</em> 2nd Ed. Upper Saddle River, NJ: Prentice Hall, 2002.</p>
-<h1 id="另请参阅"><a href="#另请参阅" class="headerlink" title="另请参阅"></a>另请参阅</h1><p><a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/signal/ref/rcosdesign.html"><code>rcosdesign</code></a></p>
-<hr>
+<h1 id="另请参阅">另请参阅</h1>
+<p><a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/signal/ref/rcosdesign.html"><code>rcosdesign</code></a></p>
+<hr />
 <p>在 R2013b 中推出</p>
-<hr>
+<hr />
 <p>原文参考：<a target="_blank" rel="noopener" href="https://ww2.mathworks.cn/help/signal/ref/gaussdesign.html">https://ww2.mathworks.cn/help/signal/ref/gaussdesign.html</a></p>
 
     </div>
@@ -446,7 +457,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GSM-GMSK-%E6%95%B0%E5%AD%97%E8%9C%82%E7%AA%9D%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E7%9A%84%E9%AB%98%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">GSM GMSK 数字蜂窝通信系统的高斯滤波器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">输入参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bt-3-dB%E5%B8%A6%E5%AE%BD%E7%AC%A6%E5%8F%B7%E6%97%B6%E9%97%B4%E7%A7%AF"><span class="nav-number">4.1.</span> <span class="nav-text">bt - 3-dB带宽符号时间积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#span-%E7%AC%A6%E5%8F%B7%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">span - 符号数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sps-%E6%AF%8F%E4%B8%AA%E7%AC%A6%E5%8F%B7%E7%9A%84%E6%A0%B7%E6%9C%AC%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">sps - 每个符号的样本数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">输出参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#h-FIR-%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%B3%BB%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">h - FIR 滤波器系数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A6%E8%AF%B7%E5%8F%82%E9%98%85"><span class="nav-number">7.</span> <span class="nav-text">另请参阅</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gsm-gmsk-%E6%95%B0%E5%AD%97%E8%9C%82%E7%AA%9D%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E7%9A%84%E9%AB%98%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">GSM GMSK 数字蜂窝通信系统的高斯滤波器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">输入参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bt---3-db%E5%B8%A6%E5%AE%BD%E7%AC%A6%E5%8F%B7%E6%97%B6%E9%97%B4%E7%A7%AF"><span class="nav-number">4.1.</span> <span class="nav-text">bt - 3-dB带宽符号时间积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#span---%E7%AC%A6%E5%8F%B7%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">span - 符号数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sps---%E6%AF%8F%E4%B8%AA%E7%AC%A6%E5%8F%B7%E7%9A%84%E6%A0%B7%E6%9C%AC%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">sps - 每个符号的样本数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">输出参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#h---fir-%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%B3%BB%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">h - FIR 滤波器系数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A6%E8%AF%B7%E5%8F%82%E9%98%85"><span class="nav-number">7.</span> <span class="nav-text">另请参阅</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -529,8 +540,8 @@
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -540,13 +551,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">126k</span>
+    <span title="站点总字数">129k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:54</span>
+    <span title="站点阅读时长">1:57</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
